@@ -12,6 +12,16 @@ const SearchExercises = () => {
     }}mb='50px' textAlign='center'>
         Awesome Exercises You <br/>Should Know
     </Typography>
+    <Box position='relative' mb='72px'>
+        <TextField
+        height='76px'
+        value=""
+        onChange={(e)=>{ }}
+        placeholder='Search Excercises'
+        type='text'
+        />
+    </Box>
+
  </Stack>
   )
 }
