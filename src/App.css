@@ -1,6 +1,6 @@
 body {
-  font-family: 'Josefin Sans';
-  background-color: #FFFAFB;
+  font-family: 'Poppins';
+  background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);
 }
 
 * {
@@ -9,6 +9,24 @@ body {
   box-sizing: border-box;
 
 }
+ 
+/* Navbar underline animation */
+.nav-underline {
+  position: relative;
+  transition: color .3s ease;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background: #00C2FF;
+  border-radius: 2px;
+  transition: width .3s ease;
+}
+.nav-underline:hover::after { width: 100%; }
 
 ::-webkit-scrollbar {
   width: 0px;
@@ -17,13 +35,13 @@ body {
 .right-arrow,
 .left-arrow {
   cursor: pointer;
-  background: transparent;
+  background: #fff;
   outline: none;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #FF2625;
+  color: #00C2FF;
   font-size: 25px;
   border-radius: 4px;
   position: absolute;
@@ -67,15 +85,17 @@ body {
   width: 400px;
   height: 445px;
   background: #fff;
-  border-top: 4px solid #FF2625;
-  border-bottom-left-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-top: 4px solid #00C2FF;
+  border-radius: 20px;
   text-decoration: none;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   padding-bottom: 10px;
   transform: scale(1, 1);
-  transition: 0.3s all ease-in-out;
+  transition: 0.3s all ease-in-out, box-shadow .25s ease;
+  box-shadow: 0 8px 24px rgba(15, 40, 62, 0.08);
 }
 
 .exercise-card img {
@@ -89,12 +109,13 @@ body {
 
 .exercise-card:hover,
 .bodyPart-card:hover {
-  transform: scale(1.1, 1.1);
+  transform: scale(1.03, 1.03);
+  box-shadow: 0 14px 36px rgba(15, 40, 62, 0.14);
 }
 
 .search-btn:hover {
-  color: #FF2625 !important;
-  border: 1px solid #FF2625 !important;
+  color: #00C2FF !important;
+  border: 1px solid #00C2FF !important;
 }
 
 .exercise-video {
@@ -157,7 +178,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #fff;
+  background-color: #FFFFFF;
   border-radius: 50%;
   width: 40px;
   height: 40px;

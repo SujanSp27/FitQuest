@@ -1,53 +1,49 @@
 import React from 'react';
-import { Box, Stack, Typography, Button } from '@mui/material';
-import HeroBannerImage from '../assets/images/banner.png';
+import { Box, Typography, Button, Container } from '@mui/material';
 
 const HeroBanner = () => {
   return (
-    <Box
+    <Box id="home"
       sx={{
-        mt: { lg: '212px', xs: '70px' }, 
-        ml: { sm: '50px' }                
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(135deg, rgba(0,194,255,0.10) 0%, rgba(34,230,168,0.10) 40%, rgba(0,163,184,0.10) 100%)',
+        py: { xs: 8, md: 12 },
+        mt: { xs: 4, md: 6 }
       }}
-      position="relative"
-      p="20px" 
     >
-      
-      <Typography
-        color="#FF2625"
-        fontWeight="600"
-        fontSize="26px"
-      >
-        FitQuest
-      </Typography>
+      <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="overline"
+          sx={{ color: 'primary.dark', fontWeight: 700, letterSpacing: 2 }}
+        >
+          FitQuest
+        </Typography>
 
-     
-      <Typography
-        fontWeight={700}
-        sx={{ fontSize: { lg: '44px', xs: '40px' } }}
-      >
-        Explore, Train <br /> and Evolve.
-      </Typography>
+        <Typography
+          variant="h2"
+          sx={{ fontWeight: 800, fontSize: { xs: '2.2rem', md: '3.4rem' }, mt: 1 }}
+        >
+          Explore, Train and Evolve
+        </Typography>
 
-      
-      <Typography fontSize="22px" lineHeight="35px" mb={3}>
-        Check out the most effective Exercises
-      </Typography>
+        <Typography
+          variant="body1"
+          sx={{ color: 'text.secondary', maxWidth: 760, mx: 'auto', mt: 2 }}
+        >
+          Discover effective movements and curated workouts to reach your goals faster.
+        </Typography>
 
-      <Button
-        variant="contained"
-        color="error"
-        href="#exercises"
-      >
-        Explore Exercises
-      </Button>
-
-     
-      <img
-        src={HeroBannerImage}
-        alt="banner"
-        className="hero-banner-img"
-      />
+        <Button
+          href="#exercises"
+          variant="contained"
+          color="primary"
+          size="large"
+          sx={{ mt: 4, px: 4, py: 1.5, borderRadius: '30px', transition: 'all .25s ease', '&:hover': { bgcolor: 'primary.light', transform: 'translateY(-1px)' } }}
+        >
+          Explore Exercises
+        </Button>
+      </Container>
     </Box>
   );
 };

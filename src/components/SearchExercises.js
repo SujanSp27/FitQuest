@@ -68,14 +68,16 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         <Button
           className="search-btn"
           sx={{
-            bgcolor: '#ff2625',
-            color: '#fff',
+            bgcolor: 'primary.main',
+            color: 'background.default',
             textTransform: 'none',
             width: { lg: '175px', xs: '80px' },
             fontSize: { lg: '20px', xs: '14px' },
             height: '56px',
             position: 'absolute',
             right: '0',
+            transition: 'all .25s ease',
+            '&:hover': { bgcolor: 'primary.light', transform: 'translateY(-1px)' }
           }}
           onClick={handleSearch}
         >
@@ -84,7 +86,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       </Box>
 
       <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
-        <HorizontalScrollbar data={bodyParts} bodyPart={bodyPart} setBodyPart={setBodyPart} />
+        <HorizontalScrollbar data={bodyParts} bodyPart={bodyPart} setBodyPart={setBodyPart} isBodyParts />
       </Box>
     </Stack>
   );
