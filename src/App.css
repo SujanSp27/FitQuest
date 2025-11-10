@@ -1,6 +1,6 @@
 body {
   font-family: 'Poppins';
-  background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);
+  background: radial-gradient(circle at top left, #0E1B22 0%, #000000 100%);
 }
 
 * {
@@ -35,15 +35,15 @@ body {
 .right-arrow,
 .left-arrow {
   cursor: pointer;
-  background: #fff;
+  background: linear-gradient(135deg, #00C2FF, #4FD7FF);
   outline: none;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #00C2FF;
+  color: #ffffff;
   font-size: 25px;
-  border-radius: 4px;
+  border-radius: 50%;
   position: absolute;
   bottom: -20px;
   right: 80px;
@@ -82,8 +82,8 @@ body {
 }
 
 .exercise-card {
-  width: 400px;
-  height: 445px;
+  width: 320px;
+  min-height: 360px;
   background: #fff;
   border: 1px solid rgba(0,0,0,0.06);
   border-top: 4px solid #00C2FF;
@@ -99,7 +99,7 @@ body {
 }
 
 .exercise-card img {
-  height: 326px;
+  height: 240px;
 }
 
 .bodyPart-card {

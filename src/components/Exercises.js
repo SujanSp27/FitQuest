@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, Grid } from '@mui/material';
 
 import { fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
@@ -49,40 +49,80 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   if (!currentExercises.length) return <Loader />;
 
   return (
-    <Box id="exercises" sx={{ mt: { lg: '110px', xs: '50px' } }} p="20px">
+    <Box
+      id="exercises"
+      sx={{
+        mt: { lg: '110px', xs: '50px' },
+        px: { xs: 2, md: 4, lg: 6 },
+        py: { xs: 4, md: 6 },
+        minHeight: '100vh'
+      }}
+    >
       <Typography
         variant="h4"
         fontWeight="bold"
-        sx={{ fontSize: { lg: '44px', xs: '30px' } }}
-        mb="46px"
-        textAlign="center"
+        sx={{ 
+          fontSize: { lg: '44px', xs: '30px' },
+          color: '#FFFFFF',
+          mb: { xs: 4, md: 6 },
+          textAlign: 'center'
+        }}
       >
         Showing Exercises
       </Typography>
 
-      <Stack
-        direction="row"
-        sx={{ gap: { lg: '50px', xs: '20px' } }}
-        flexWrap="wrap"
-        justifyContent="center"
+      <Grid
+        container
+        spacing={{ xs: 2, sm: 3, md: 4 }}
+        sx={{
+          justifyContent: 'center',
+          mb: { xs: 6, md: 8 }
+        }}
       >
         {currentExercises.map((exercise) => (
-          <ExerciseCard
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
             key={exercise.exerciseId}
-            exercise={exercise}
-          />
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'stretch'
+            }}
+          >
+            <Box sx={{ width: '100%', maxWidth: '400px', height: '100%' }}>
+              <ExerciseCard exercise={exercise} />
+            </Box>
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
 
       <Stack sx={{ mt: { lg: '100px', xs: '60px' } }} alignItems="center">
         {exercises.length > exercisesPerPage && (
           <Pagination
-            color="linear-gradient(135deg, rgba(0,194,255,0.10) 0%, rgba(34,230,168,0.10) 40%, rgba(0,163,184,0.10) 100%)"
+            color="primary"
             shape="rounded"
             count={Math.ceil(exercises.length / exercisesPerPage)}
             page={currentPage}
             onChange={paginate}
             size="large"
+            sx={{
+              '& .MuiPaginationItem-root': {
+                color: '#B8EFFF',
+                '&.Mui-selected': {
+                  backgroundColor: '#00C2FF',
+                  color: '#0B0C0F',
+                  '&:hover': {
+                    backgroundColor: '#4FD7FF'
+                  }
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 194, 255, 0.2)'
+                }
+              }
+            }}
           />
         )}
       </Stack>
