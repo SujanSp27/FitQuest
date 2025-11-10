@@ -63,15 +63,26 @@ const Navbar = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ px: { sm: 4, xs: 2 }, py: { sm: 2, xs: 1.5 } }}
+        sx={{ 
+          px: { xs: 1.5, sm: 2.5, md: 3, lg: 4 }, 
+          py: { xs: 1.5, sm: 2, md: 2.5 },
+          flexWrap: { xs: 'nowrap', sm: 'nowrap' },
+          gap: { xs: 1, sm: 2 }
+        }}
       >
         {/* Logo and App Name */}
-        <Stack direction="row" alignItems="center" gap={1.5}>
+        <Stack direction="row" alignItems="center" gap={{ xs: 1, sm: 1.5 }} sx={{ flexShrink: 0 }}>
           <Link to="/">
             <img
               src={Logo}
               alt="logo"
-              style={{ width: '56px', height: '48px', marginTop: '4px' }}
+              style={{ 
+                width: '56px', 
+                height: '48px', 
+                marginTop: '4px',
+                maxWidth: '100%',
+                height: 'auto'
+              }}
             />
           </Link>
           <Typography
@@ -80,6 +91,8 @@ const Navbar = () => {
               fontWeight: 800,
               color: '#FFFFFF',
               textShadow: '0 0 8px rgba(0,194,255,0.35)',
+              fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
+              display: { xs: 'none', sm: 'block' }
             }}
           >
             FitQuest
@@ -87,7 +100,16 @@ const Navbar = () => {
         </Stack>
 
         {/* Navigation Links and Search */}
-        <Stack direction="row" gap="28px" alignItems="center">
+        <Stack 
+          direction="row" 
+          gap={{ xs: '12px', sm: '20px', md: '28px' }} 
+          alignItems="center"
+          sx={{ 
+            flexWrap: { xs: 'nowrap', sm: 'nowrap' },
+            flexShrink: 1,
+            minWidth: 0
+          }}
+        >
           {['Home', 'Exercises'].map((text) => (
             <Typography
               key={text}
@@ -97,8 +119,10 @@ const Navbar = () => {
                 cursor: 'pointer',
                 fontWeight: 500,
                 color: '#B8EFFF',
-                fontSize: '16px',
+                fontSize: { xs: '14px', sm: '15px', md: '16px' },
                 transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap',
+                touchAction: 'manipulation',
                 '&::after': {
                   content: '""',
                   position: 'absolute',
@@ -134,12 +158,15 @@ const Navbar = () => {
             placeholder="Search"
             size="small"
             sx={{
-              minWidth: { xs: 140, sm: 220 },
+              minWidth: { xs: 100, sm: 160, md: 200, lg: 220 },
+              maxWidth: { xs: 120, sm: 180, md: 220 },
               backgroundColor: '#101417',
               borderRadius: 30,
               color: '#FFFFFF',
               '& .MuiOutlinedInput-input': {
                 color: '#FFFFFF',
+                fontSize: { xs: '0.875rem', sm: '1rem' },
+                padding: { xs: '8px 12px', sm: '10px 14px' },
                 '::placeholder': { color: '#B8EFFF', opacity: 1 },
               },
               '& .MuiOutlinedInput-notchedOutline': { borderColor: '#00C2FF' },
@@ -160,6 +187,8 @@ const Navbar = () => {
                     size="small"
                     sx={{
                       color: '#00C2FF',
+                      padding: { xs: '4px', sm: '8px' },
+                      touchAction: 'manipulation',
                       '&:hover': { textShadow: '0 0 10px #00C2FF' },
                     }}
                   >

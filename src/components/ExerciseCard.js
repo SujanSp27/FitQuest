@@ -9,14 +9,16 @@ const ExerciseCard = ({ exercise }) => {
   }
 
   return (
-    <Link
+    <Box
+      component={Link}
       className="exercise-card"
       to={`/exercise/${exercise.exerciseId}`}
-      style={{
+      sx={{
         textDecoration: "none",
         flex: "1 1 300px",
-        maxWidth: "340px",
-        minWidth: "280px",
+        maxWidth: "100%",
+        minWidth: { xs: "260px", sm: "280px", md: "300px" },
+        width: "100%",
       }}
     >
       <Box
@@ -25,7 +27,10 @@ const ExerciseCard = ({ exercise }) => {
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          height: "430px",
+          height: { xs: "400px", sm: "420px", md: "430px" },
+          minHeight: { xs: "400px", sm: "420px", md: "430px" },
+          width: "100%",
+          maxWidth: "100%",
           background:
             "linear-gradient(160deg, #0A0E11 0%, #0E1B22 100%)",
           border: "1px solid rgba(0, 194, 255, 0.35)",
@@ -38,6 +43,7 @@ const ExerciseCard = ({ exercise }) => {
           transition: "all 0.4s ease",
           transform: "translateY(0)",
           animation: "floatCard 4s ease-in-out infinite",
+          touchAction: "manipulation",
           "&:hover": {
             transform: "translateY(-10px) scale(1.02)",
             border: "1px solid rgba(0, 194, 255, 0.7)",
@@ -55,7 +61,7 @@ const ExerciseCard = ({ exercise }) => {
           sx={{
             position: "relative",
             width: "100%",
-            height: "230px",
+            height: { xs: "200px", sm: "220px", md: "230px" },
             overflow: "hidden",
             borderBottom: "1px solid rgba(0,194,255,0.2)",
           }}
@@ -89,22 +95,23 @@ const ExerciseCard = ({ exercise }) => {
         {/* Muscle Type Buttons */}
         <Stack
           direction="row"
-          spacing={1.5}
+          spacing={{ xs: 1, sm: 1.5 }}
           justifyContent="center"
           alignItems="center"
           flexWrap="wrap"
-          sx={{ pt: "14px" }}
+          sx={{ pt: { xs: "10px", sm: "14px" }, px: { xs: 1, sm: 2 } }}
         >
           <Button
             sx={{
               color: "#0B0C0F",
               background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
-              fontSize: "13px",
+              fontSize: { xs: "11px", sm: "12px", md: "13px" },
               borderRadius: "999px",
               textTransform: "capitalize",
-              px: 2,
-              py: 0.6,
+              px: { xs: 1.5, sm: 2 },
+              py: { xs: 0.5, sm: 0.6 },
               fontWeight: 600,
+              touchAction: "manipulation",
               "&:hover": {
                 background: "linear-gradient(90deg, #14F1C5, #00C2FF)",
                 boxShadow: "0 0 10px rgba(0,194,255,0.5)",
@@ -119,12 +126,13 @@ const ExerciseCard = ({ exercise }) => {
             sx={{
               color: "#0B0C0F",
               background: "linear-gradient(90deg, #14F1C5, #00A3B8)",
-              fontSize: "13px",
+              fontSize: { xs: "11px", sm: "12px", md: "13px" },
               borderRadius: "999px",
               textTransform: "capitalize",
-              px: 2,
-              py: 0.6,
+              px: { xs: 1.5, sm: 2 },
+              py: { xs: 0.5, sm: 0.6 },
               fontWeight: 600,
+              touchAction: "manipulation",
               "&:hover": {
                 background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
                 boxShadow: "0 0 10px rgba(0,194,255,0.5)",
@@ -144,17 +152,17 @@ const ExerciseCard = ({ exercise }) => {
           color="#FFFFFF"
           textAlign="center"
           sx={{
-            px: "16px",
-            pt: "10px",
-            pb: "6px",
-            fontSize: { xs: "16px", md: "18px" },
-            lineHeight: "1.3",
+            px: { xs: "12px", sm: "16px" },
+            pt: { xs: "8px", sm: "10px" },
+            pb: { xs: "4px", sm: "6px" },
+            fontSize: { xs: "14px", sm: "16px", md: "18px" },
+            lineHeight: { xs: "1.2", sm: "1.3" },
             textTransform: "capitalize",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             textShadow: "0 0 8px rgba(0,194,255,0.4)",
-            minHeight: "45px",
+            minHeight: { xs: "40px", sm: "45px" },
             letterSpacing: "0.3px",
           }}
         >
@@ -165,8 +173,8 @@ const ExerciseCard = ({ exercise }) => {
         <Box
           sx={{
             width: "100%",
-            px: "16px",
-            pb: "18px",
+            px: { xs: "12px", sm: "16px" },
+            pb: { xs: "14px", sm: "18px" },
             mt: "auto",
             display: "flex",
             justifyContent: "center",
@@ -179,10 +187,11 @@ const ExerciseCard = ({ exercise }) => {
               color: "#FFFFFF",
               fontWeight: 700,
               borderRadius: "30px",
-              py: 1.2,
-              fontSize: "15px",
+              py: { xs: 1, sm: 1.2 },
+              fontSize: { xs: "13px", sm: "14px", md: "15px" },
               boxShadow: "0 6px 18px rgba(0, 194, 255, 0.28)",
               transition: "all .3s ease-in-out",
+              touchAction: "manipulation",
               "&:hover": {
                 background:
                   "linear-gradient(90deg, #14F1C5 0%, #00C2FF 100%)",
@@ -195,7 +204,7 @@ const ExerciseCard = ({ exercise }) => {
           </Button>
         </Box>
       </Box>
-    </Link>
+    </Box>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Box } from '@mui/material';
 
 // Import all icons
 import AllIcon from '../assets/icons/all-Photoroom.png';
@@ -44,13 +44,15 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
           'linear-gradient(#101417, #101417) padding-box, linear-gradient(135deg, #00C2FF, #4FD7FF) border-box',
         border: '2px solid transparent',
         borderRadius: '16px',
-        width: '270px',
-        height: '280px',
+        width: { xs: '240px', sm: '250px', md: '270px' },
+        minWidth: { xs: '240px', sm: '250px', md: '270px' },
+        height: { xs: '260px', sm: '270px', md: '280px' },
         cursor: 'pointer',
-        gap: '18px',
+        gap: { xs: '14px', sm: '16px', md: '18px' },
         boxShadow: '0 6px 18px rgba(0, 194, 255, 0.12)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         transform: bodyPart === name ? 'scale(1.07)' : 'scale(1)',
+        touchAction: 'manipulation',
         '&:hover': {
           transform: 'scale(1.07)',
           boxShadow: '0 12px 28px rgba(0,194,255,0.35)',
@@ -61,23 +63,27 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
       }}
     >
-      <img
+      <Box
+        component="img"
         src={icon}
         alt={name}
-        style={{
-          width: '80px',
-          height: '80px',
+        sx={{
+          width: { xs: '70px', sm: '75px', md: '80px' },
+          height: { xs: '70px', sm: '75px', md: '80px' },
           objectFit: 'contain',
           filter: 'drop-shadow(0 0 8px rgba(0,194,255,0.4))',
         }}
       />
       <Typography
-        fontSize="20px"
-        fontWeight="700"
-        color="#FFFFFF"
-        textTransform="capitalize"
-        textAlign="center"
-        sx={{ textShadow: '0 0 6px rgba(0,194,255,0.4)' }}
+        sx={{
+          fontSize: { xs: '18px', sm: '19px', md: '20px' },
+          fontWeight: '700',
+          color: '#FFFFFF',
+          textTransform: 'capitalize',
+          textAlign: 'center',
+          textShadow: '0 0 6px rgba(0,194,255,0.4)',
+          px: { xs: 1, sm: 1.5 }
+        }}
       >
         {name}
       </Typography>

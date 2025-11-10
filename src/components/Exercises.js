@@ -52,33 +52,48 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     <Box
       id="exercises"
       sx={{
+        width: '100%',
         mt: { lg: '110px', xs: '50px' },
-        px: { xs: 2, md: 4, lg: 6 },
         py: { xs: 4, md: 6 },
         minHeight: '100vh'
       }}
     >
-      <Typography
-        variant="h4"
-        fontWeight="bold"
-        sx={{ 
-          fontSize: { lg: '44px', xs: '30px' },
-          color: '#FFFFFF',
-          mb: { xs: 4, md: 6 },
-          textAlign: 'center'
-        }}
-      >
-        Showing Exercises
-      </Typography>
-
-      <Grid
-        container
-        spacing={{ xs: 2, sm: 3, md: 4 }}
+      <Box
         sx={{
-          justifyContent: 'center',
-          mb: { xs: 6, md: 8 }
+          maxWidth: { 
+            xs: '100%', 
+            sm: '600px', 
+            md: '900px', 
+            lg: '1200px', 
+            xl: '1600px'
+          },
+          mx: 'auto',
+          px: { xs: 2, sm: 3, md: 4, lg: 5 }
         }}
       >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          sx={{ 
+            fontSize: { xs: '24px', sm: '28px', md: '32px', lg: '44px' },
+            color: '#FFFFFF',
+            mb: { xs: 3, sm: 4, md: 6 },
+            textAlign: 'center',
+            px: { xs: 1, sm: 2 }
+          }}
+        >
+          Showing Exercises
+        </Typography>
+
+        <Grid
+          container
+          spacing={{ xs: 2, sm: 2.5, md: 3, lg: 4 }}
+          sx={{
+            justifyContent: 'center',
+            mb: { xs: 4, sm: 6, md: 8 },
+            px: { xs: 1, sm: 2 }
+          }}
+        >
         {currentExercises.map((exercise) => (
           <Grid
             item
@@ -89,43 +104,46 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'stretch'
+              alignItems: 'stretch',
+              width: '100%',
+              maxWidth: { xs: '100%', sm: '400px' }
             }}
           >
-            <Box sx={{ width: '100%', maxWidth: '400px', height: '100%' }}>
+            <Box sx={{ width: '100%', maxWidth: { xs: '100%', sm: '400px' }, height: '100%', display: 'flex', justifyContent: 'center' }}>
               <ExerciseCard exercise={exercise} />
             </Box>
           </Grid>
         ))}
-      </Grid>
+        </Grid>
 
-      <Stack sx={{ mt: { lg: '100px', xs: '60px' } }} alignItems="center">
-        {exercises.length > exercisesPerPage && (
-          <Pagination
-            color="primary"
-            shape="rounded"
-            count={Math.ceil(exercises.length / exercisesPerPage)}
-            page={currentPage}
-            onChange={paginate}
-            size="large"
-            sx={{
-              '& .MuiPaginationItem-root': {
-                color: '#B8EFFF',
-                '&.Mui-selected': {
-                  backgroundColor: '#00C2FF',
-                  color: '#0B0C0F',
+        <Stack sx={{ mt: { lg: '100px', xs: '60px' } }} alignItems="center">
+          {exercises.length > exercisesPerPage && (
+            <Pagination
+              color="primary"
+              shape="rounded"
+              count={Math.ceil(exercises.length / exercisesPerPage)}
+              page={currentPage}
+              onChange={paginate}
+              size="large"
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  color: '#B8EFFF',
+                  '&.Mui-selected': {
+                    backgroundColor: '#00C2FF',
+                    color: '#0B0C0F',
+                    '&:hover': {
+                      backgroundColor: '#4FD7FF'
+                    }
+                  },
                   '&:hover': {
-                    backgroundColor: '#4FD7FF'
+                    backgroundColor: 'rgba(0, 194, 255, 0.2)'
                   }
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 194, 255, 0.2)'
                 }
-              }
-            }}
-          />
-        )}
-      </Stack>
+              }}
+            />
+          )}
+        </Stack>
+      </Box>
     </Box>
   );
 };

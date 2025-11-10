@@ -6,7 +6,7 @@ import { fetchData } from "../utils/fetchData";
 import Detail from "../components/Detail";
 import ExerciseVideos from "../components/ExerciseVideo";
 import SimilarExercises from "../components/SimilarExercises";
-import localVideos from "../data/exerciseVideos.json"; // ✅ your generated file
+import localVideos from "../data/exerciseVideos.json"; 
 
 const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState({});

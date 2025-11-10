@@ -17,6 +17,7 @@
     "react-loader-spinner": "^8.0.0",
     "react-router-dom": "^7.9.5",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

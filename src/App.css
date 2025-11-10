@@ -1,13 +1,18 @@
 body {
   font-family: 'Poppins';
   background: radial-gradient(circle at top left, #0E1B22 0%, #000000 100%);
+  overflow-x: hidden;
 }
 
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+}
 
+html {
+  overflow-x: hidden;
+  width: 100%;
 }
  
 /* Navbar underline animation */
@@ -49,6 +54,10 @@ body {
   right: 80px;
   transform: scale(1, 1);
   transition: 0.3s all ease-in-out;
+  z-index: 20;
+  min-width: 45px;
+  min-height: 45px;
+  touch-action: manipulation;
 }
 
 .right-arrow {
@@ -64,6 +73,7 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 .detail-image {
@@ -78,7 +88,6 @@ body {
   width: 700px;
   height: 900px;
   margin-top: -330px;
-
 }
 
 .exercise-card {
@@ -127,24 +136,39 @@ body {
   text-decoration: none;
 }
 
-@media screen and (max-width:1200px) {
+/* Responsive Breakpoints */
+/* Extra Large Desktops (≥1600px) */
+@media screen and (min-width: 1600px) {
   .detail-image {
-    width: 300px;
-    height: 300px;
-  }
-
-
-  .react-horizontal-scrolling-menu--scroll-container {
-    width: 500px;
-  }
-
-  .left-arrow,
-  .right-arrow {
-    position: static !important;
+    width: 729px;
+    height: 742px;
   }
 
   .hero-banner-img {
-    display: none;
+    width: 700px;
+    height: 900px;
+  }
+
+  .exercise-card {
+    width: 340px;
+  }
+
+  .exercise-video {
+    width: 387px;
+    height: 381px;
+  }
+}
+
+/* Large Desktops (1200px - 1599px) */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+  .detail-image {
+    width: 600px;
+    height: 600px;
+  }
+
+  .hero-banner-img {
+    width: 600px;
+    height: 800px;
   }
 
   .exercise-card {
@@ -152,15 +176,102 @@ body {
   }
 
   .exercise-video {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+/* Tablets and Medium Desktops (900px - 1199px) */
+@media screen and (min-width: 900px) and (max-width: 1199px) {
+  .detail-image {
+    width: 400px;
+    height: 400px;
+  }
+
+  .hero-banner-img {
+    display: none;
+  }
+
+  .exercise-card {
+    width: 300px;
+  }
+
+  .exercise-video {
     width: 320px;
+    height: 320px;
+  }
+
+  .react-horizontal-scrolling-menu--scroll-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small Tablets (600px - 899px) */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  .detail-image {
+    width: 350px;
+    height: 350px;
+  }
+
+  .hero-banner-img {
+    display: none;
+  }
+
+  .exercise-card {
+    width: 280px;
+  }
+
+  .exercise-video {
+    width: 300px;
     height: 300px;
   }
 
+  .react-horizontal-scrolling-menu--scroll-container {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
-@media screen and (max-width:400px) {
+/* Mobile Devices (≤599px) */
+@media screen and (max-width: 599px) {
+  .detail-image {
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-banner-img {
+    display: none;
+  }
+
   .exercise-card {
     width: 280px;
+    min-width: 280px;
+  }
+
+  .exercise-video {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .react-horizontal-scrolling-menu--scroll-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Extra Small Mobile (≤480px) */
+@media screen and (max-width: 480px) {
+  .exercise-card {
+    width: 260px;
+    min-width: 260px;
+  }
+
+  .exercise-video {
+    width: 100%;
+    max-width: 280px;
   }
 }
 /* Make Scroll Menu horizontal */
@@ -195,6 +306,8 @@ body {
   border-radius: 50%;
   width: 45px;
   height: 45px;
+  min-width: 45px;
+  min-height: 45px;
   box-shadow: 0 0 15px rgba(0, 194, 255, 0.5);
   cursor: pointer;
   display: flex;
@@ -204,6 +317,7 @@ body {
   z-index: 20;
   color: #000;
   border: none;
+  touch-action: manipulation;
 }
 
 /* Arrow glow hover effect */
@@ -213,13 +327,50 @@ body {
   box-shadow: 0 0 25px rgba(20, 241, 197, 0.8);
 }
 
-/* Correct arrow positions */
+/* Correct arrow positions - Responsive */
 .left-arrow {
   left: 18px;
 }
 
 .right-arrow {
   right: 18px;
+}
+
+/* Responsive arrow positioning */
+@media screen and (max-width: 768px) {
+  .left-arrow {
+    left: 8px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .right-arrow {
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .left-arrow {
+    left: 4px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  .right-arrow {
+    right: 4px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
 }
 
 /* Hide scroll bar completely for cleaner UI */
@@ -239,4 +390,24 @@ body {
   align-items: center;
   padding-inline: 0 !important;
   margin-inline: auto !important;
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Responsive scroll container adjustments */
+@media screen and (max-width: 768px) {
+  .react-horizontal-scrolling-menu--scroll-container {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .react-horizontal-scrolling-menu--scroll-container {
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+  }
+}
+html {
+  scroll-behavior: smooth;
 }

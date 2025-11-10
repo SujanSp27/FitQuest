@@ -15,15 +15,29 @@ const Detail = ({ exerciseDetail }) => {
   ];
 
   return (
-    <Stack
-      gap="60px"
-      sx={{
-        flexDirection: { lg: 'row', xs: 'column' },
-        p: { xs: '16px', md: '30px' },
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <Box sx={{ width: '100%' }}>
+      <Box
+        sx={{
+          maxWidth: { 
+            xs: '100%', 
+            sm: '600px', 
+            md: '900px', 
+            lg: '1200px', 
+            xl: '1600px'
+          },
+          mx: 'auto',
+          px: { xs: 2, sm: 3, md: 4, lg: 5 }
+        }}
+      >
+        <Stack
+          gap="60px"
+          sx={{
+            flexDirection: { lg: 'row', xs: 'column' },
+            p: { xs: '16px', md: '30px' },
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
       {/* Exercise Image */}
       <Box
         component="img"
@@ -31,13 +45,14 @@ const Detail = ({ exerciseDetail }) => {
         alt={name}
         loading="lazy"
         sx={{
-          width: { lg: '380px', md: '340px', xs: '280px' },
-          height: { lg: '380px', md: '340px', xs: '280px' },
+          width: { xs: '280px', sm: '320px', md: '340px', lg: '380px' },
+          height: { xs: '280px', sm: '320px', md: '340px', lg: '380px' },
+          maxWidth: '100%',
           objectFit: 'contain',
           borderRadius: '20px',
           boxShadow: '0 0 30px rgba(0, 194, 255, 0.25)',
           background: 'linear-gradient(145deg, #101417, #0E1B22)',
-          p: '10px',
+          p: { xs: '8px', sm: '10px' },
         }}
       />
 
@@ -52,12 +67,14 @@ const Detail = ({ exerciseDetail }) => {
       >
         <Typography
           sx={{
-            fontSize: { lg: '52px', md: '40px', xs: '30px' },
+            fontSize: { xs: '28px', sm: '32px', md: '40px', lg: '52px' },
             color: '#FFFFFF',
             fontWeight: 800,
-            lineHeight: 1.2,
+            lineHeight: { xs: 1.1, sm: 1.2 },
             textTransform: 'capitalize',
             textShadow: '0 0 10px rgba(0,194,255,0.5)',
+            px: { xs: 1, sm: 2 },
+            textAlign: { xs: 'center', lg: 'left' }
           }}
         >
           {name}
@@ -65,9 +82,11 @@ const Detail = ({ exerciseDetail }) => {
 
         <Typography
           sx={{
-            fontSize: { lg: '20px', md: '18px', xs: '16px' },
+            fontSize: { xs: '14px', sm: '16px', md: '18px', lg: '20px' },
             color: '#00C2FF',
-            lineHeight: 1.7,
+            lineHeight: { xs: 1.5, sm: 1.6, md: 1.7 },
+            px: { xs: 1, sm: 2 },
+            textAlign: { xs: 'center', lg: 'left' }
           }}
         >
           Exercises keep you strong.{' '}
@@ -81,12 +100,13 @@ const Detail = ({ exerciseDetail }) => {
         {/* Horizontal Icon Row */}
         <Stack
           direction="row"
-          gap={{ lg: '30px', md: '25px', xs: '18px' }}
+          gap={{ xs: '14px', sm: '18px', md: '25px', lg: '30px' }}
           justifyContent={{ xs: 'center', lg: 'flex-start' }}
           alignItems="center"
           flexWrap="wrap"
           sx={{
-            mt: '10px',
+            mt: { xs: '8px', sm: '10px' },
+            px: { xs: 1, sm: 2 }
           }}
         >
           {extraDetail.map((item) => (
@@ -94,32 +114,36 @@ const Detail = ({ exerciseDetail }) => {
               key={item.name}
               alignItems="center"
               justifyContent="center"
-              gap="10px"
-              sx={{ minWidth: '100px' }}
+              gap={{ xs: '8px', sm: '10px' }}
+              sx={{ minWidth: { xs: '90px', sm: '100px' } }}
             >
               <Button
                 sx={{
                   background: 'linear-gradient(145deg, #00C2FF, #14F1C5)',
                   borderRadius: '50%',
-                  width: '90px',
-                  height: '90px',
+                  width: { xs: '75px', sm: '85px', md: '90px' },
+                  height: { xs: '75px', sm: '85px', md: '90px' },
+                  minWidth: { xs: '75px', sm: '85px', md: '90px' },
+                  minHeight: { xs: '75px', sm: '85px', md: '90px' },
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   boxShadow: '0 0 20px rgba(0, 194, 255, 0.3)',
                   transition: 'all 0.3s ease',
+                  touchAction: 'manipulation',
                   '&:hover': {
                     boxShadow: '0 0 30px rgba(0, 194, 255, 0.6)',
                     transform: 'translateY(-5px)',
                   },
                 }}
               >
-                <img
+                <Box
+                  component="img"
                   src={item.icon}
                   alt={item.name}
-                  style={{
-                    width: '40px',
-                    height: '40px',
+                  sx={{
+                    width: { xs: '35px', sm: '38px', md: '40px' },
+                    height: { xs: '35px', sm: '38px', md: '40px' },
                     filter: 'drop-shadow(0 0 6px #00C2FF)',
                   }}
                 />
@@ -127,7 +151,7 @@ const Detail = ({ exerciseDetail }) => {
               <Typography
                 textTransform="capitalize"
                 sx={{
-                  fontSize: { lg: '20px', md: '18px', xs: '16px' },
+                  fontSize: { xs: '14px', sm: '16px', md: '18px', lg: '20px' },
                   color: '#E0F7FF',
                   fontWeight: 600,
                   textAlign: 'center',
@@ -139,7 +163,9 @@ const Detail = ({ exerciseDetail }) => {
           ))}
         </Stack>
       </Stack>
-    </Stack>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 
