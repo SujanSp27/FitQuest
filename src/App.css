@@ -164,47 +164,79 @@ body {
   }
 }
 /* Make Scroll Menu horizontal */
+/* Main scroll container */
 .react-horizontal-scrolling-menu--scroll-container {
   display: flex !important;
   flex-direction: row !important;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 0;
-}
-
-/* Position the arrow buttons */
-.left-arrow,
-.right-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #FFFFFF;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  z-index: 10;
-}
-
-.left-arrow {
-  left: 10px;
-}
-
-.right-arrow {
-  right: 10px;
-}
-
-.left-arrow:hover,
-.right-arrow:hover {
-  transform: translateY(-50%) scale(1.1);
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  padding: 10px 0 !important;
+  margin: 0 !important;
+  gap: 20px !important;              /* balanced spacing between cards */
+  padding-right: 0 !important;       /* removes right extra space */
+  padding-left: 0 !important;
+  scroll-padding-right: 0 !important;
 }
 
 /* Hide vertical scroll bar */
 .react-horizontal-scrolling-menu--wrapper {
   overflow-y: hidden !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 🔵 Glowing arrow buttons */
+.left-arrow,
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #00C2FF 0%, #14F1C5 100%);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 0 15px rgba(0, 194, 255, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  z-index: 20;
+  color: #000;
+  border: none;
+}
+
+/* Arrow glow hover effect */
+.left-arrow:hover,
+.right-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 25px rgba(20, 241, 197, 0.8);
+}
+
+/* Correct arrow positions */
+.left-arrow {
+  left: 18px;
+}
+
+.right-arrow {
+  right: 18px;
+}
+
+/* Hide scroll bar completely for cleaner UI */
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Center cards nicely and remove extra end space */
+.react-horizontal-scrolling-menu--inner-wrapper {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center;
+  padding-inline: 0 !important;
+  margin-inline: auto !important;
 }

@@ -57,8 +57,8 @@ const Footer = () => (
       sx={{ alignItems: 'center' }} 
       flexWrap="wrap" 
       px={{ xs: 2, md: 4 }}
-      pt="40px"
-      pb="24px"
+      pt="16px"
+      pb="0px"
     >
       <img src={Logo} alt="logo" style={{ width: '60px', height: '48px', filter: 'drop-shadow(0 0 10px rgba(0, 194, 255, 0.5))' }} />
       <Typography 
