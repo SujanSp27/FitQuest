@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Stack, Typography, TextField, InputAdornment, IconButton } from '@mui/material';
+import {
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import Logo from '../assets/images/logofitquest-Photoroom.png';
 
 const Navbar = () => {
@@ -25,10 +32,8 @@ const Navbar = () => {
   // Handle Home navigation
   const handleHomeClick = () => {
     if (location.pathname === '/') {
-      // Already on home — just scroll to top smoothly
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Navigate to homepage
       navigate('/');
     }
   };
@@ -63,7 +68,11 @@ const Navbar = () => {
         {/* Logo and App Name */}
         <Stack direction="row" alignItems="center" gap={1.5}>
           <Link to="/">
-            <img src={Logo} alt="logo" style={{ width: '56px', height: '48px' }} />
+            <img
+              src={Logo}
+              alt="logo"
+              style={{ width: '56px', height: '48px', marginTop: '4px' }}
+            />
           </Link>
           <Typography
             variant="h6"
@@ -77,39 +86,43 @@ const Navbar = () => {
           </Typography>
         </Stack>
 
-        {/* Nav Links + Search */}
-        <Stack direction="row" gap="24px" alignItems="center">
-          <Typography
-            onClick={handleHomeClick}
-            sx={{
-              textDecoration: 'none',
-              color: '#B8EFFF',
-              fontWeight: 500,
-              cursor: 'pointer',
-              '&:hover': {
-                color: '#00C2FF',
-                textShadow: '0 0 6px rgba(0,194,255,0.7)',
-              },
-            }}
-          >
-            Home
-          </Typography>
-
-          <Typography
-            onClick={handleExerciseClick}
-            sx={{
-              textDecoration: 'none',
-              color: '#B8EFFF',
-              fontWeight: 500,
-              cursor: 'pointer',
-              '&:hover': {
-                color: '#00C2FF',
-                textShadow: '0 0 6px rgba(0,194,255,0.7)',
-              },
-            }}
-          >
-            Exercises
-          </Typography>
+        {/* Navigation Links and Search */}
+        <Stack direction="row" gap="28px" alignItems="center">
+          {['Home', 'Exercises'].map((text) => (
+            <Typography
+              key={text}
+              onClick={text === 'Home' ? handleHomeClick : handleExerciseClick}
+              sx={{
+                position: 'relative',
+                cursor: 'pointer',
+                fontWeight: 500,
+                color: '#B8EFFF',
+                fontSize: '16px',
+                transition: 'all 0.3s ease',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '-4px',
+                  left: 0,
+                  width: 0,
+                  height: '2px',
+                  background:
+                    'linear-gradient(90deg, #00C2FF 0%, #14F1C5 100%)',
+                  borderRadius: '1px',
+                  transition: 'width 0.3s ease',
+                },
+                '&:hover': {
+                  color: '#00C2FF',
+                  textShadow: '0 0 6px rgba(0,194,255,0.7)',
+                },
+                '&:hover::after': {
+                  width: '100%',
+                },
+              }}
+            >
+              {text}
+            </Typography>
+          ))}
 
           {/* Search Bar */}
           <TextField
@@ -130,8 +143,12 @@ const Navbar = () => {
                 '::placeholder': { color: '#B8EFFF', opacity: 1 },
               },
               '& .MuiOutlinedInput-notchedOutline': { borderColor: '#00C2FF' },
-              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#4FD7FF' },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#00A3B8' },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#4FD7FF',
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#00A3B8',
+              },
               '& .MuiOutlinedInput-root': { borderRadius: 30 },
             }}
             InputProps={{

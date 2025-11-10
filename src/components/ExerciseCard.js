@@ -25,22 +25,28 @@ const ExerciseCard = ({ exercise }) => {
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          height: "420px",
-          background: "linear-gradient(145deg, #101417 0%, #0E1B22 100%)",
-          border: "1px solid rgba(0, 194, 255, 0.3)",
+          height: "430px",
+          background:
+            "linear-gradient(160deg, #0A0E11 0%, #0E1B22 100%)",
+          border: "1px solid rgba(0, 194, 255, 0.35)",
           borderRadius: "22px",
           boxShadow:
-            "0 10px 25px rgba(0, 194, 255, 0.1), 0 0 30px rgba(0, 194, 255, 0.05)",
+            "0 10px 30px rgba(0, 194, 255, 0.15), 0 0 25px rgba(0, 194, 255, 0.08)",
           overflow: "hidden",
-          transition: "all 0.4s ease",
           cursor: "pointer",
           position: "relative",
+          transition: "all 0.4s ease",
           transform: "translateY(0)",
+          animation: "floatCard 4s ease-in-out infinite",
           "&:hover": {
-            transform: "translateY(-12px)",
+            transform: "translateY(-10px) scale(1.02)",
+            border: "1px solid rgba(0, 194, 255, 0.7)",
             boxShadow:
-              "0 0 25px rgba(0, 194, 255, 0.6), 0 10px 40px rgba(0, 194, 255, 0.25)",
-            border: "1px solid rgba(0, 194, 255, 0.6)",
+              "0 0 35px rgba(0, 194, 255, 0.6), 0 10px 50px rgba(0, 194, 255, 0.25)",
+          },
+          "@keyframes floatCard": {
+            "0%, 100%": { transform: "translateY(0)" },
+            "50%": { transform: "translateY(-6px)" },
           },
         }}
       >
@@ -51,6 +57,7 @@ const ExerciseCard = ({ exercise }) => {
             width: "100%",
             height: "230px",
             overflow: "hidden",
+            borderBottom: "1px solid rgba(0,194,255,0.2)",
           }}
         >
           <Box
@@ -63,7 +70,7 @@ const ExerciseCard = ({ exercise }) => {
               height: "100%",
               objectFit: "contain",
               transition: "transform .4s ease",
-              "&:hover": { transform: "scale(1.05)" },
+              "&:hover": { transform: "scale(1.07)" },
             }}
           />
           <Box
@@ -72,9 +79,9 @@ const ExerciseCard = ({ exercise }) => {
               bottom: 0,
               left: 0,
               right: 0,
-              height: "150px",
+              height: "140px",
               background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)",
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%)",
             }}
           />
         </Box>
@@ -86,20 +93,24 @@ const ExerciseCard = ({ exercise }) => {
           justifyContent="center"
           alignItems="center"
           flexWrap="wrap"
-          sx={{ pt: "12px" }}
+          sx={{ pt: "14px" }}
         >
           <Button
             sx={{
               color: "#0B0C0F",
-              background: "#00C2FF",
+              background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
               fontSize: "13px",
               borderRadius: "999px",
               textTransform: "capitalize",
               px: 2,
-              py: 0.5,
+              py: 0.6,
               fontWeight: 600,
-              "&:hover": { background: "#14F1C5" },
+              "&:hover": {
+                background: "linear-gradient(90deg, #14F1C5, #00C2FF)",
+                boxShadow: "0 0 10px rgba(0,194,255,0.5)",
+              },
               boxShadow: "0 2px 8px rgba(0, 194, 255, 0.25)",
+              transition: "all 0.3s ease",
             }}
           >
             {exercise.bodyParts?.[0]}
@@ -107,15 +118,19 @@ const ExerciseCard = ({ exercise }) => {
           <Button
             sx={{
               color: "#0B0C0F",
-              background: "#14F1C5",
+              background: "linear-gradient(90deg, #14F1C5, #00A3B8)",
               fontSize: "13px",
               borderRadius: "999px",
               textTransform: "capitalize",
               px: 2,
-              py: 0.5,
+              py: 0.6,
               fontWeight: 600,
-              "&:hover": { background: "#00C2FF" },
+              "&:hover": {
+                background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
+                boxShadow: "0 0 10px rgba(0,194,255,0.5)",
+              },
               boxShadow: "0 2px 8px rgba(0, 194, 255, 0.25)",
+              transition: "all 0.3s ease",
             }}
           >
             {exercise.targetMuscles?.[0]}
@@ -131,16 +146,16 @@ const ExerciseCard = ({ exercise }) => {
           sx={{
             px: "16px",
             pt: "10px",
-            pb: "4px",
+            pb: "6px",
             fontSize: { xs: "16px", md: "18px" },
             lineHeight: "1.3",
             textTransform: "capitalize",
-            height: "auto",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             textShadow: "0 0 8px rgba(0,194,255,0.4)",
             minHeight: "45px",
+            letterSpacing: "0.3px",
           }}
         >
           {exercise.name}
@@ -151,7 +166,7 @@ const ExerciseCard = ({ exercise }) => {
           sx={{
             width: "100%",
             px: "16px",
-            pb: "12px",
+            pb: "18px",
             mt: "auto",
             display: "flex",
             justifyContent: "center",
@@ -163,14 +178,14 @@ const ExerciseCard = ({ exercise }) => {
               background: "linear-gradient(90deg, #00C2FF 0%, #00A3B8 100%)",
               color: "#FFFFFF",
               fontWeight: 700,
-              borderRadius: "28px",
-              py: 1.1,
+              borderRadius: "30px",
+              py: 1.2,
               fontSize: "15px",
-              boxShadow: "0 4px 15px rgba(0, 194, 255, 0.25)",
-              transition: "all .25s ease-in-out",
+              boxShadow: "0 6px 18px rgba(0, 194, 255, 0.28)",
+              transition: "all .3s ease-in-out",
               "&:hover": {
                 background:
-                  "linear-gradient(90deg, #0093CC 0%, #007A89 100%)",
+                  "linear-gradient(90deg, #14F1C5 0%, #00C2FF 100%)",
                 transform: "translateY(-3px)",
                 boxShadow: "0 0 20px #00C2FF",
               },
