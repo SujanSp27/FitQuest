@@ -6,7 +6,7 @@ import { fetchData } from "../utils/fetchData";
 import Detail from "../components/Detail";
 import ExerciseVideos from "../components/ExerciseVideo";
 import SimilarExercises from "../components/SimilarExercises";
-import localVideos from "../data/exerciseVideos.json"; 
+import localVideos from "../data/exerciseVideos.json";
 
 const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState({});
@@ -17,15 +17,22 @@ const ExerciseDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     const fetchExercisesData = async () => {
       try {
+        setLoading(true);
+
+        // Scroll to top immediately when component mounts/navigates
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
         const exercisesData = await fetchData(
           "https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json"
         );
 
-        const exerciseDetailData = exercisesData.find((ex) => ex.exerciseId === id);
+        const exerciseDetailData = exercisesData.find(
+          (ex) => ex.exerciseId === id
+        );
         setExerciseDetail(exerciseDetailData);
 
         // Match exercise with local YouTube data
@@ -60,6 +67,57 @@ const ExerciseDetail = () => {
 
     fetchExercisesData();
   }, [id]);
+
+  // Separate effect to ensure scroll position after content loads
+  useEffect(() => {
+    if (!loading && exerciseDetail?.name) {
+      // Function to forcefully scroll to top and prevent unwanted scrolling
+      const forceScrollToTop = () => {
+        // Prevent any focus-related scrolling that might cause jumps
+        const activeElement = document.activeElement;
+        if (activeElement && 
+            activeElement !== document.body && 
+            activeElement !== document.documentElement &&
+            activeElement.tagName !== 'INPUT' && 
+            activeElement.tagName !== 'TEXTAREA') {
+          activeElement.blur();
+        }
+        
+        // Force scroll to absolute top using all methods for maximum compatibility
+        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Also check for any scrollable containers and reset them
+        const scrollContainers = document.querySelectorAll('.react-horizontal-scrolling-menu--scroll-container');
+        scrollContainers.forEach(container => {
+          container.scrollLeft = 0;
+        });
+      };
+
+      // Scroll immediately after content is loaded
+      forceScrollToTop();
+
+      // Use requestAnimationFrame to ensure it happens after React finishes rendering
+      requestAnimationFrame(() => {
+        forceScrollToTop();
+        // Double RAF to catch any delayed renders
+        requestAnimationFrame(() => {
+          forceScrollToTop();
+        });
+      });
+
+      // Additional scroll after a brief delay to handle any async content loading
+      const timeoutId = setTimeout(forceScrollToTop, 100);
+      const timeoutId2 = setTimeout(forceScrollToTop, 300);
+
+      return () => {
+        clearTimeout(timeoutId);
+        clearTimeout(timeoutId2);
+      };
+    }
+  }, [loading, exerciseDetail]);
 
   // ✨ Custom FitQuest Loading Screen
   if (loading) {
@@ -138,8 +196,14 @@ const ExerciseDetail = () => {
 
   return (
     <Box sx={{ mt: { lg: "96px", xs: "60px" } }}>
-      <Detail exerciseDetail={exerciseDetail} />
-      <ExerciseVideos exerciseVideos={exerciseVideos} name={exerciseDetail.name} />
+      {/* ✅ Detail section with ID for explicit scrolling */}
+      <Box id="exercise-detail-section">
+        <Detail exerciseDetail={exerciseDetail} />
+      </Box>
+      <ExerciseVideos
+        exerciseVideos={exerciseVideos}
+        name={exerciseDetail.name}
+      />
       <SimilarExercises
         targetMuscleExercises={targetMuscleExercises}
         equipmentExercises={equipmentExercises}
