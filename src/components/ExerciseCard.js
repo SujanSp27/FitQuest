@@ -13,6 +13,7 @@ const ExerciseCard = ({ exercise }) => {
       component={Link}
       className="exercise-card"
       to={`/exercise/${exercise.exerciseId}`}
+      id={`exercise-card-${exercise.exerciseId}`}
       sx={{
         textDecoration: "none",
         flex: "1 1 300px",

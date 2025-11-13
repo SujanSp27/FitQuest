@@ -9,6 +9,7 @@ import Loader from './Loader';
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(9);
+  const [pendingScrollId, setPendingScrollId] = useState(null);
 
   useEffect(() => {
     const fetchExercisesData = async () => {
@@ -33,6 +34,24 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     fetchExercisesData();
   }, [bodyPart, setExercises]);
 
+  useEffect(() => {
+    const handleScrollToExercise = (event) => {
+      const targetId = event.detail?.exerciseId;
+      if (targetId) {
+        setPendingScrollId(targetId);
+      }
+    };
+
+    window.addEventListener('fitquest-scroll-to-exercise', handleScrollToExercise);
+    return () => {
+      window.removeEventListener('fitquest-scroll-to-exercise', handleScrollToExercise);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [exercises]);
+
   // Pagination logic
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
@@ -45,6 +64,28 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     setCurrentPage(value);
     window.scrollTo({ top: 1800, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    if (!pendingScrollId) return undefined;
+
+    const scrollToCard = () => {
+      const el = document.getElementById(`exercise-card-${pendingScrollId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setPendingScrollId(null);
+        return true;
+      }
+      return false;
+    };
+
+    if (scrollToCard()) return undefined;
+
+    const retryTimer = setTimeout(() => {
+      scrollToCard();
+    }, 200);
+
+    return () => clearTimeout(retryTimer);
+  }, [pendingScrollId, exercises]);
 
   if (!currentExercises.length) return <Loader />;
 

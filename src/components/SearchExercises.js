@@ -40,6 +40,17 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
         setSearch('');
         setExercises(filtered);
+
+        const firstExerciseId = filtered[0]?.exerciseId;
+        if (firstExerciseId) {
+          setTimeout(() => {
+            window.dispatchEvent(
+              new CustomEvent('fitquest-scroll-to-exercise', {
+                detail: { exerciseId: firstExerciseId },
+              })
+            );
+          }, 0);
+        }
       } catch (error) {
         console.error('Error fetching exercises:', error);
       }
