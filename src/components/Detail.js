@@ -38,7 +38,7 @@ const Detail = ({ exerciseDetail }) => {
             justifyContent: 'center',
           }}
         >
-      {/* Exercise Image */}
+      
       <Box
         component="img"
         src={gifUrl}
@@ -56,7 +56,7 @@ const Detail = ({ exerciseDetail }) => {
         }}
       />
 
-      {/* Exercise Details */}
+     
       <Stack
         sx={{
           gap: { lg: '28px', xs: '20px' },
