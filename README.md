@@ -1,190 +1,164 @@
-# 📦 Inventory Monitoring & Reporting System (JavaFX + Maven)
+# 🏋️‍♂️ FitQuest – Exercise Discovery & Recommendation App (React)
 
-A complete **Inventory Monitoring, Management & Reporting System** built using **JavaFX**, **Maven**, **DAO Architecture**, **Service Layer**, and **CSV/SQL-based product storage**. This system provides a modern UI, inventory automation, reporting tools, and user management.
+FitQuest is a fitness-focused **React application** that lets users search for exercises, view detailed information, watch YouTube tutorial videos, and get recommendations for **similar exercises** and **equipment-based variations**. It provides an intuitive UI for users to explore workouts based on body parts, equipment, and muscle groups.
 
 ---
 
 ## 🌟 Key Highlights
 
-✔ Fully Interactive **JavaFX UI**
-✔ Structured **Maven project**
-✔ **Product & User Management** with validation
-✔ **DAO-Based Architecture** (ProductDAO, UserDAO)
-✔ **Low Stock Alerts & Automatic Stock Checker**
-✔ **JavaFX Screens** (Dashboard, Products, Reports, Settings, Users)
-✔ CSV-backed Data Storage
-✔ In-app **Report Generation (CSV)**
+✔ Search any exercise by name, muscle group, or equipment  
+✔ View exercise details with images & instructions  
+✔ Embedded **YouTube video tutorials**  
+✔ Get **similar exercises** based on target muscle  
+✔ Get **equipment-based exercise recommendations**  
+✔ Responsive UI for mobile & desktop  
+✔ Built using modern React components  
 
 ---
 
 ## 📁 Project Structure
 
-```
-Inventory Monitoring And Reporting System/
-│ pom.xml
-│ products.csv
-│ products_queries.sql
-│ UI-GUIDE.md
+fitquest/
+│ package.json
+│ README.md
 │
-├── src/main
-│   ├── java/com/inventory
-│   │   ├── controller/
-│   │   │   ├── InventoryController.java
-│   │   │   ├── ProductController.java
-│   │   │   ├── ReportController.java
-│   │   │   ├── SettingsController.java
-│   │   │   ├── UserController.java
-│   │   │   └── InventoryApp.java
-│   │   ├── model/
-│   │   │   ├── Product.java
-│   │   │   └── User.java
-│   │   ├── service/
-│   │   │   ├── InventoryManager.java
-│   │   │   ├── UserService.java
-│   │   │   ├── OTPService.java
-│   │   │   └── StockAlertService.java
-│   │   ├── DataAccessObject/
-│   │   │   ├── ProductDAO.java
-│   │   │   ├── UserDAO.java
-│   │   │   └── impl/
-│   │   │       └── UserDaoImpl.java
-│   │   ├── utils/
-│   │   │   ├── EmailUtil.java
-│   │   │   ├── ProductDAOHelper.java
-│   │   │   └── ReportGenerator.java
-│   │   └── Main.java
-│   └── resources/
-│       ├── fxml/
-│       │   ├── dashboard.fxml
-│       │   ├── inventory_view.fxml
-│       │   ├── products_view.fxml
-│       │   ├── reports_view.fxml
-│       │   ├── settings_view.fxml
-│       │   └── user_dashboard.fxml
-│       └── css/
-│           ├── modern-style.css
-│           └── style.css
-```
+├── public/
+└── src/
+├── components/
+├── pages/
+├── utils/
+├── assets/
+└── App.js
+
+yaml
+Copy code
 
 ---
 
-## 🎨 JavaFX UI Screens Included
+## 🎨 Screens / Pages Included
 
-* **Dashboard**
-* **Inventory View**
-* **Products Management Page**
-* **Report Generation Page**
-* **User Dashboard**
-* **Settings Page**
-
-All fully connected with FXML + Controller classes.
+- **Home / Search Page**
+- **Exercise Details Page**
+- **YouTube Tutorial Section**
+- **Similar Exercises Section**
+- **Equipment-Based Exercises Page**
+- **Responsive UI Layout**
 
 ---
 
-## 🚀 How to Run the Project (Maven)
+## 🚀 How to Run the Project
 
-### **1️⃣ Clone the repository**
+### **1️⃣ Install dependencies**
+npm install
 
-```
-git clone https://github.com/SujanSp27/Inventory-Monitoring-And-Reporting-System.git
-```
+markdown
+Copy code
 
-### **2️⃣ Open in IntelliJ IDEA / Eclipse**
+### **2️⃣ Start development server**
+npm start
 
-* IntelliJ automatically loads Maven dependencies
+yaml
+Copy code
 
-### **3️⃣ Run the App**
+App runs at:  
+http://localhost:3000
 
-Open:
-`src/main/java/com/inventory/InventoryApp.java`
-
-Click **Run ▶**.
+yaml
+Copy code
 
 ---
 
 ## 🧠 Core Features
 
-### 🔐 **1. User Login & OTP Verification**
+### 🔍 **1. Exercise Search**
+Search by:
+- Exercise name  
+- Body part  
+- Target muscle  
+- Equipment (dumbbells, barbell, cable, etc.)
 
-* Secure login with email-based OTP
-* Managed by `UserService` & `OTPService`
+### 📘 **2. Exercise Details**
+Each exercise shows:
+- Exercise name  
+- Animated GIF  
+- Body part  
+- Target muscle  
+- Equipment used  
+- Step-by-step instructions  
 
-### 📦 **2. Inventory Management**
+### 🎥 **3. YouTube Tutorial Integration**
+- Automatically fetches related workout videos  
+- Videos displayed directly on exercise page  
 
-* Add / Update / Delete products
-* Quantity validation
-* Category & price management
-* CSV-backed product database
+### 🤝 **4. Similar Exercises**
+Recommendations based on:
+- Same target muscle  
+- Similar movements  
+- Related workout styles  
 
-### ⚠️ **3. Automatic Low Stock Alerts**
-
-* `StockAlertService` checks for critical products
-* Alerts user inside UI
-
-### 📝 **4. Reports Module**
-
-* Generates CSV reports such as:
-
-  * Complete Inventory Report
-  * Low Stock Report
-  * Out-of-Stock Report
-* Generated with timestamps
-
-### 👥 **5. User Management**
-
-* Add new users
-* View user list
-* Manage roles
+### 🏋️ **5. Equipment-Based Suggestions**
+Shows all exercises using:
+- Dumbbell  
+- Bodyweight  
+- Cable machine  
+- Barbell  
+…and more.
 
 ---
 
-## 📊 Example Report Output
+## 🌐 APIs Used
 
-```
-Product ID,Name,Category,Price,Stock
-101,HP Laptop,Electronics,45000,12
-203,Whiteboard,Office,1500,2
-```
+- **ExerciseDB API** → Exercise info, GIFs, target muscles  
+- **YouTube Search API** → Exercise tutorial videos  
 
-Reports save to *inventory_report_YYYYMMDD.csv*
+---
+
+## 📸 Example Exercise Output
+
+Exercise: Barbell Bench Press
+Target Muscle: Chest
+Equipment: Barbell
+Instructions: Lie on bench, lower bar to chest, push upward...
+
+yaml
+Copy code
 
 ---
 
 ## 🛠️ Technologies Used
 
-| Tech                    | Purpose                    |
-| ----------------------- | -------------------------- |
-| **Java 17+**            | Core backend & UI logic    |
-| **JavaFX**              | User Interface             |
-| **FXML**                | View layouts               |
-| **CSS**                 | UI styling                 |
-| **Maven**               | Dependency management      |
-| **CSV / SQL**           | Product storage            |
-| **DAO + Service Layer** | Clean modular architecture |
+| Tech          | Purpose                 |
+|---------------|--------------------------|
+| **React**     | Main UI framework        |
+| **React Router** | Page navigation      |
+| **ExerciseDB API** | Exercise data      |
+| **YouTube API** | Video tutorials       |
+| **CSS**       | Styling & layout         |
 
 ---
 
-## 📌 Future Upgrades
+## 📌 Future Enhancements
 
-* Full database migration (MySQL / PostgreSQL)
-* Export reports as PDF
-* Add charts & analytics in JavaFX
-* Add multi-user role-based dashboard
+- User login system  
+- Save favorite workouts  
+- Daily/weekly workout planner  
+- AI-based workout recommendations  
+- Dark/Light mode toggle  
 
 ---
 
 ## 🤝 Contribution
 
-Pull requests are welcome.
-Follow standard branching → commit → PR workflow.
+Pull requests are welcome!  
+Feel free to open issues or suggest improvements.
 
 ---
 
 ## 📧 Contact
 
-**Sujan Poojary**
-GitHub:https://github.com/SujanSp27
+**Sujan Poojary**  
+GitHub: https://github.com/SujanSp27  
 
 ---
 
-⭐ *Don’t forget to star the repository if this project helped you!*
+⭐ *If you like this project, consider giving the repository a star!*
