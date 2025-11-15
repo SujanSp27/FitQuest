@@ -16,25 +16,6 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 
 ---
 
-## 📁 Project Structure
-
-fitquest/
-│ package.json
-│ README.md
-│
-├── public/
-└── src/
-├── components/
-├── pages/
-├── utils/
-├── assets/
-└── App.js
-
-yaml
-Copy code
-
----
-
 ## 🎨 Screens / Pages Included
 
 - **Home / Search Page**
@@ -51,20 +32,11 @@ Copy code
 ### **1️⃣ Install dependencies**
 npm install
 
-markdown
-Copy code
-
 ### **2️⃣ Start development server**
 npm start
 
-yaml
-Copy code
-
 App runs at:  
 http://localhost:3000
-
-yaml
-Copy code
 
 ---
 
@@ -104,26 +76,6 @@ Shows all exercises using:
 - Barbell  
 …and more.
 
----
-
-## 🌐 APIs Used
-
-- **ExerciseDB API** → Exercise info, GIFs, target muscles  
-- **YouTube Search API** → Exercise tutorial videos  
-
----
-
-## 📸 Example Exercise Output
-
-Exercise: Barbell Bench Press
-Target Muscle: Chest
-Equipment: Barbell
-Instructions: Lie on bench, lower bar to chest, push upward...
-
-yaml
-Copy code
-
----
 
 ## 🛠️ Technologies Used
 
