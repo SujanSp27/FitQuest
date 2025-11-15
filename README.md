@@ -1,4 +1,4 @@
-# 🏋️‍♂️ FitQuest – Exercise Discovery & Recommendation App (React)
+# 🏋️‍♂️ FitQuest – Exercise Discovery & Recommendation App 
 
 FitQuest is a fitness-focused **React application** that lets users search for exercises, view detailed information, watch YouTube tutorial videos, and get recommendations for **similar exercises** and **equipment-based variations**. It provides an intuitive UI for users to explore workouts based on body parts, equipment, and muscle groups.
 
