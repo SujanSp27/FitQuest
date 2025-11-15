@@ -30,10 +30,14 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 ## 🚀 How to Run the Project
 
 ### **1️⃣ Install dependencies**
+```bash
 npm install
+```
 
 ### **2️⃣ Start development server**
+```bash
 npm start
+```
 
 App runs at:  
 http://localhost:3000
@@ -82,9 +86,7 @@ Shows all exercises using:
 | Tech          | Purpose                 |
 |---------------|--------------------------|
 | **React**     | Main UI framework        |
-| **React Router** | Page navigation      |
-| **ExerciseDB API** | Exercise data      |
-| **YouTube API** | Video tutorials       |
+| **React Router** | Page navigation      |     
 | **CSS**       | Styling & layout         |
 
 ---
@@ -106,11 +108,5 @@ Feel free to open issues or suggest improvements.
 
 ---
 
-## 📧 Contact
-
-**Sujan Poojary**  
-GitHub: https://github.com/SujanSp27  
-
----
 
 ⭐ *If you like this project, consider giving the repository a star!*
