@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack, Typography, Box } from '@mui/material';
 
-// Import all icons
+
 import AllIcon from '../assets/icons/all-Photoroom.png';
 import NeckIcon from '../assets/icons/neck-Photoroom.png';
 import LowerArmsIcon from '../assets/icons/lowerarms-Photoroom.png';
