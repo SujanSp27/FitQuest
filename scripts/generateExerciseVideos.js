@@ -1,6 +1,3 @@
-// scripts/generateExerciseVideos.js
-// ✅ Generates exerciseVideos.json from ExerciseDB with real YouTube video IDs
-// Works offline with no API keys
 
 import fs from "fs";
 import fetch from "node-fetch";
@@ -8,7 +5,6 @@ import fetch from "node-fetch";
 const EXERCISE_URL =
   "https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json";
 
-// ✅ Real YouTube video IDs (fitness tutorials)
 const youtubeIDs = [
   "IODxDxX7oi4", // Push Up
   "3p8EBPVZ2Iw", // Squat
@@ -32,7 +28,7 @@ const youtubeIDs = [
   "gMaB-fG4u4g", // Jump Rope
 ];
 
-// 🔀 Randomly select 3 unique YouTube IDs for each exercise
+
 const pickRandomVideos = () => {
   const shuffled = youtubeIDs.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, 3);
