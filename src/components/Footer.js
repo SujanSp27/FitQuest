@@ -133,7 +133,7 @@ const Footer = () => (
         }}
       />
       <Box component="span" sx={{ whiteSpace: { xs: 'normal', sm: 'nowrap' } }}>
-        © 2025 FitQuest 
+        © 2025 FitQuest | Developed by Sujan Poojary
       </Box>
     </Typography>
   </Box>
