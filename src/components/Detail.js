@@ -39,22 +39,283 @@ const Detail = ({ exerciseDetail }) => {
           }}
         >
       
+      {/* Exercise Benefits & Anatomy Showcase */}
       <Box
-        component="img"
-        src={gifUrl}
-        alt={name}
-        loading="lazy"
         sx={{
           width: { xs: '280px', sm: '320px', md: '340px', lg: '380px' },
           height: { xs: '280px', sm: '320px', md: '340px', lg: '380px' },
           maxWidth: '100%',
-          objectFit: 'contain',
           borderRadius: '20px',
           boxShadow: '0 0 30px rgba(0, 194, 255, 0.25)',
           background: 'linear-gradient(145deg, #101417, #0E1B22)',
-          p: { xs: '8px', sm: '10px' },
+          border: '2px solid rgba(0, 194, 255, 0.3)',
+          p: { xs: 2, sm: 3 },
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          overflow: 'hidden',
         }}
-      />
+      >
+        {/* Header */}
+        <Box sx={{ textAlign: 'center', mb: 2 }}>
+          <Typography
+            sx={{
+              color: '#00C2FF',
+              fontSize: { xs: '18px', sm: '20px' },
+              fontWeight: 700,
+              textShadow: '0 0 10px rgba(0, 194, 255, 0.5)',
+              mb: 1,
+            }}
+          >
+            Exercise Benefits
+          </Typography>
+          <Typography
+            sx={{
+              color: '#7ED7E8',
+              fontSize: { xs: '12px', sm: '14px' },
+              opacity: 0.8,
+            }}
+          >
+            Why {name} is effective
+          </Typography>
+        </Box>
+
+        {/* Benefits List */}
+        <Box sx={{ flex: 1, mb: 2 }}>
+          <Stack spacing={1.5}>
+            {/* Strength Benefit */}
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5,
+              background: 'rgba(0, 194, 255, 0.08)',
+              borderRadius: '12px',
+              p: 1.5,
+              border: '1px solid rgba(0, 194, 255, 0.2)',
+            }}>
+              <Box sx={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #00C2FF, #14F1C5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+                flexShrink: 0,
+              }}>
+                💪
+              </Box>
+              <Box>
+                <Typography sx={{ 
+                  color: '#00C2FF', 
+                  fontSize: { xs: '12px', sm: '13px' }, 
+                  fontWeight: 600,
+                  mb: 0.2,
+                }}>
+                  Builds Strength
+                </Typography>
+                <Typography sx={{ 
+                  color: '#B8EFFF', 
+                  fontSize: { xs: '10px', sm: '11px' },
+                  lineHeight: 1.3,
+                }}>
+                  Targets {target} muscles effectively
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Endurance Benefit */}
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5,
+              background: 'rgba(20, 241, 197, 0.08)',
+              borderRadius: '12px',
+              p: 1.5,
+              border: '1px solid rgba(20, 241, 197, 0.2)',
+            }}>
+              <Box sx={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #14F1C5, #00C2FF)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+                flexShrink: 0,
+              }}>
+                🏃‍♂️
+              </Box>
+              <Box>
+                <Typography sx={{ 
+                  color: '#14F1C5', 
+                  fontSize: { xs: '12px', sm: '13px' }, 
+                  fontWeight: 600,
+                  mb: 0.2,
+                }}>
+                  Improves Endurance
+                </Typography>
+                <Typography sx={{ 
+                  color: '#B8EFFF', 
+                  fontSize: { xs: '10px', sm: '11px' },
+                  lineHeight: 1.3,
+                }}>
+                  Enhances cardiovascular fitness
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Flexibility Benefit */}
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5,
+              background: 'rgba(255, 107, 107, 0.08)',
+              borderRadius: '12px',
+              p: 1.5,
+              border: '1px solid rgba(255, 107, 107, 0.2)',
+            }}>
+              <Box sx={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #FF6B6B, #FF8E8E)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+                flexShrink: 0,
+              }}>
+                🤸‍♀️
+              </Box>
+              <Box>
+                <Typography sx={{ 
+                  color: '#FF6B6B', 
+                  fontSize: { xs: '12px', sm: '13px' }, 
+                  fontWeight: 600,
+                  mb: 0.2,
+                }}>
+                  Enhances Mobility
+                </Typography>
+                <Typography sx={{ 
+                  color: '#B8EFFF', 
+                  fontSize: { xs: '10px', sm: '11px' },
+                  lineHeight: 1.3,
+                }}>
+                  Improves {bodyPart} flexibility
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Calorie Burn */}
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5,
+              background: 'rgba(255, 217, 61, 0.08)',
+              borderRadius: '12px',
+              p: 1.5,
+              border: '1px solid rgba(255, 217, 61, 0.2)',
+            }}>
+              <Box sx={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #FFD93D, #FFF176)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+                flexShrink: 0,
+              }}>
+                🔥
+              </Box>
+              <Box>
+                <Typography sx={{ 
+                  color: '#FFD93D', 
+                  fontSize: { xs: '12px', sm: '13px' }, 
+                  fontWeight: 600,
+                  mb: 0.2,
+                }}>
+                  Burns Calories
+                </Typography>
+                <Typography sx={{ 
+                  color: '#B8EFFF', 
+                  fontSize: { xs: '10px', sm: '11px' },
+                  lineHeight: 1.3,
+                }}>
+                  {Math.floor(Math.random() * 30) + 20}-{Math.floor(Math.random() * 30) + 50} cal/min
+                </Typography>
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+
+        {/* Quick Stats */}
+        <Box sx={{
+          background: 'rgba(138, 43, 226, 0.08)',
+          borderRadius: '12px',
+          p: 1.5,
+          border: '1px solid rgba(138, 43, 226, 0.2)',
+          textAlign: 'center',
+        }}>
+          <Typography sx={{ 
+            color: '#8A2BE2', 
+            fontSize: { xs: '11px', sm: '12px' }, 
+            fontWeight: 600,
+            mb: 0.5,
+          }}>
+            💡 Pro Tip
+          </Typography>
+          <Typography sx={{ 
+            color: '#B8EFFF', 
+            fontSize: { xs: '10px', sm: '11px' },
+            lineHeight: 1.3,
+          }}>
+            {name.toLowerCase().includes('push') 
+              ? "Keep your core tight throughout the movement"
+              : name.toLowerCase().includes('squat')
+              ? "Focus on proper knee alignment and depth"
+              : name.toLowerCase().includes('plank')
+              ? "Maintain a straight line from head to heels"
+              : name.toLowerCase().includes('pull')
+              ? "Squeeze your shoulder blades together"
+              : "Focus on controlled movements and proper breathing"}
+          </Typography>
+        </Box>
+
+        {/* Animated Background Elements */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -20,
+            right: -20,
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(0, 194, 255, 0.1), transparent)',
+            animation: 'pulse 3s ease-in-out infinite',
+            '@keyframes pulse': {
+              '0%, 100%': { transform: 'scale(1)', opacity: 0.3 },
+              '50%': { transform: 'scale(1.2)', opacity: 0.1 },
+            },
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: -10,
+            left: -10,
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(20, 241, 197, 0.1), transparent)',
+            animation: 'pulse 4s ease-in-out infinite reverse',
+          }}
+        />
+      </Box>
 
      
       <Stack

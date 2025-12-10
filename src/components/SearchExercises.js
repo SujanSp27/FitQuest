@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { fetchData } from '../utils/fetchData';
 import HorizontalScrollbar from './HorizontalScrollbar';
@@ -9,27 +9,81 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData(
-        'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/bodyparts.json'
-      );
-      setBodyParts(['all', ...bodyPartsData]);
+      try {
+        // Try multiple API endpoints for better reliability
+        const endpoints = [
+          'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/bodyparts.json',
+          'https://exercisedb.p.rapidapi.com/exercises/bodyPartList',
+          // Fallback will be handled by fetchData function
+        ];
+        
+        let bodyPartsData = [];
+        for (const endpoint of endpoints) {
+          try {
+            const options = endpoint.includes('rapidapi.com') ? {
+              headers: {
+                'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY || '',
+                'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+              }
+            } : {};
+            
+            bodyPartsData = await fetchData(endpoint, options);
+            if (bodyPartsData && bodyPartsData.length > 0) {
+              break;
+            }
+          } catch (error) {
+            console.warn(`Failed to fetch from ${endpoint}:`, error);
+            continue;
+          }
+        }
+        
+        setBodyParts(['all', ...bodyPartsData]);
+        console.log('✅ Body parts loaded successfully:', bodyPartsData.length);
+      } catch (error) {
+        console.error('❌ Error loading body parts:', error);
+        // Set default body parts as fallback
+        setBodyParts(['all', 'back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist']);
+      }
     };
     fetchExercisesData();
   }, []);
 
-  const handleSearch = async (incomingQuery) => {
+  const handleSearch = useCallback(async (incomingQuery) => {
     const query = (incomingQuery ?? search)?.trim().toLowerCase();
     if (query) {
       try {
-        const allExercises = await fetchData(
-          'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json'
-        );
+        // Try multiple API endpoints for exercises
+        const endpoints = [
+          'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json',
+          'https://exercisedb.p.rapidapi.com/exercises',
+          // Fallback will be handled by fetchData function
+        ];
+        
+        let allExercises = [];
+        for (const endpoint of endpoints) {
+          try {
+            const options = endpoint.includes('rapidapi.com') ? {
+              headers: {
+                'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY || '',
+                'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+              }
+            } : {};
+            
+            allExercises = await fetchData(endpoint, options);
+            if (allExercises && allExercises.length > 0) {
+              break;
+            }
+          } catch (error) {
+            console.warn(`Failed to fetch exercises from ${endpoint}:`, error);
+            continue;
+          }
+        }
 
         const filtered = allExercises.filter((exercise) => {
           const name = exercise.name?.toLowerCase() || '';
-          const target = exercise.targetMuscles?.join(' ').toLowerCase() || '';
-          const equipment = exercise.equipments?.join(' ').toLowerCase() || '';
-          const bodyPart = exercise.bodyParts?.join(' ').toLowerCase() || '';
+          const target = exercise.targetMuscles?.join(' ').toLowerCase() || exercise.target?.toLowerCase() || '';
+          const equipment = exercise.equipments?.join(' ').toLowerCase() || exercise.equipment?.toLowerCase() || '';
+          const bodyPart = exercise.bodyParts?.join(' ').toLowerCase() || exercise.bodyPart?.toLowerCase() || '';
           return (
             name.includes(query) ||
             target.includes(query) ||
@@ -41,7 +95,9 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         setSearch('');
         setExercises(filtered);
 
-        const firstExerciseId = filtered[0]?.exerciseId;
+        console.log(`🔍 Search results for "${query}":`, filtered.length, 'exercises found');
+
+        const firstExerciseId = filtered[0]?.exerciseId || filtered[0]?.id;
         if (firstExerciseId) {
           setTimeout(() => {
             window.dispatchEvent(
@@ -52,16 +108,18 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           }, 0);
         }
       } catch (error) {
-        console.error('Error fetching exercises:', error);
+        console.error('❌ Error searching exercises:', error);
+        // Show user-friendly error message
+        setExercises([]);
       }
     }
-  };
+  }, [search, setExercises]);
 
   useEffect(() => {
     const onGlobalSearch = (e) => handleSearch(e.detail?.query || '');
     window.addEventListener('fitquest-search', onGlobalSearch);
     return () => window.removeEventListener('fitquest-search', onGlobalSearch);
-  }, []);
+  }, [handleSearch]);
 
   return (
     <Box sx={{ width: '100%' }}>

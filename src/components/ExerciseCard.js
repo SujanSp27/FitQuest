@@ -1,19 +1,29 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Stack, Typography, Box } from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
+import { getExerciseEmoji } from "../utils/imageUtils";
 
 const ExerciseCard = ({ exercise }) => {
-  if (!exercise || !exercise.exerciseId) {
-    console.warn("⚠️ Missing exerciseId for:", exercise);
+
+  if (!exercise || (!exercise.exerciseId && !exercise.id)) {
+    console.warn("⚠️ Missing exerciseId/id for:", exercise);
     return null;
   }
+
+  // Handle different data structures from different APIs
+  const exerciseId = exercise.exerciseId || exercise.id;
+  const bodyPart = exercise.bodyParts?.[0] || exercise.bodyPart || 'general';
+  const targetMuscle = exercise.targetMuscles?.[0] || exercise.target || 'muscle';
+  const exerciseName = exercise.name || 'Unknown Exercise';
+  const exerciseEmoji = getExerciseEmoji(exercise);
+
+
 
   return (
     <Box
       component={Link}
       className="exercise-card"
-      to={`/exercise/${exercise.exerciseId}`}
-      id={`exercise-card-${exercise.exerciseId}`}
+      to={`/exercise/${exerciseId}`}
+      id={`exercise-card-${exerciseId}`}
       sx={{
         textDecoration: "none",
         flex: "1 1 300px",
@@ -26,178 +36,687 @@ const ExerciseCard = ({ exercise }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: { xs: "400px", sm: "420px", md: "430px" },
-          minHeight: { xs: "400px", sm: "420px", md: "430px" },
+          height: "auto",
+          minHeight: { xs: "180px", sm: "200px", md: "220px" },
           width: "100%",
-          maxWidth: "100%",
-          background:
-            "linear-gradient(160deg, #0A0E11 0%, #0E1B22 100%)",
-          border: "1px solid rgba(0, 194, 255, 0.35)",
-          borderRadius: "22px",
-          boxShadow:
-            "0 10px 30px rgba(0, 194, 255, 0.15), 0 0 25px rgba(0, 194, 255, 0.08)",
+          background: "linear-gradient(145deg, #0F1419 0%, #1a2332 100%)",
+          border: "1px solid rgba(0, 194, 255, 0.4)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 194, 255, 0.1)",
           overflow: "hidden",
           cursor: "pointer",
           position: "relative",
-          transition: "all 0.4s ease",
-          transform: "translateY(0)",
-          animation: "floatCard 4s ease-in-out infinite",
-          touchAction: "manipulation",
+          transition: "all 0.3s ease",
           "&:hover": {
-            transform: "translateY(-10px) scale(1.02)",
+            transform: "translateY(-3px)",
             border: "1px solid rgba(0, 194, 255, 0.7)",
-            boxShadow:
-              "0 0 35px rgba(0, 194, 255, 0.6), 0 10px 50px rgba(0, 194, 255, 0.25)",
-          },
-          "@keyframes floatCard": {
-            "0%, 100%": { transform: "translateY(0)" },
-            "50%": { transform: "translateY(-6px)" },
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 194, 255, 0.2)",
           },
         }}
       >
-        {/* Exercise Image */}
+        {/* Compact Header with Icon */}
         <Box
           sx={{
-            position: "relative",
-            width: "100%",
-            height: { xs: "200px", sm: "220px", md: "230px" },
-            overflow: "hidden",
-            borderBottom: "1px solid rgba(0,194,255,0.2)",
-          }}
-        >
-          <Box
-            component="img"
-            src={exercise.gifUrl}
-            alt={exercise.name}
-            loading="lazy"
-            sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              transition: "transform .4s ease",
-              "&:hover": { transform: "scale(1.07)" },
-            }}
-          />
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: "140px",
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%)",
-            }}
-          />
-        </Box>
-
-        {/* Muscle Type Buttons */}
-        <Stack
-          direction="row"
-          spacing={{ xs: 1, sm: 1.5 }}
-          justifyContent="center"
-          alignItems="center"
-          flexWrap="wrap"
-          sx={{ pt: { xs: "10px", sm: "14px" }, px: { xs: 1, sm: 2 } }}
-        >
-          <Button
-            sx={{
-              color: "#0B0C0F",
-              background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
-              fontSize: { xs: "11px", sm: "12px", md: "13px" },
-              borderRadius: "999px",
-              textTransform: "capitalize",
-              px: { xs: 1.5, sm: 2 },
-              py: { xs: 0.5, sm: 0.6 },
-              fontWeight: 600,
-              touchAction: "manipulation",
-              "&:hover": {
-                background: "linear-gradient(90deg, #14F1C5, #00C2FF)",
-                boxShadow: "0 0 10px rgba(0,194,255,0.5)",
-              },
-              boxShadow: "0 2px 8px rgba(0, 194, 255, 0.25)",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {exercise.bodyParts?.[0]}
-          </Button>
-          <Button
-            sx={{
-              color: "#0B0C0F",
-              background: "linear-gradient(90deg, #14F1C5, #00A3B8)",
-              fontSize: { xs: "11px", sm: "12px", md: "13px" },
-              borderRadius: "999px",
-              textTransform: "capitalize",
-              px: { xs: 1.5, sm: 2 },
-              py: { xs: 0.5, sm: 0.6 },
-              fontWeight: 600,
-              touchAction: "manipulation",
-              "&:hover": {
-                background: "linear-gradient(90deg, #00C2FF, #14F1C5)",
-                boxShadow: "0 0 10px rgba(0,194,255,0.5)",
-              },
-              boxShadow: "0 2px 8px rgba(0, 194, 255, 0.25)",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {exercise.targetMuscles?.[0]}
-          </Button>
-        </Stack>
-
-        {/* Exercise Title */}
-        <Typography
-          variant="h6"
-          fontWeight="700"
-          color="#FFFFFF"
-          textAlign="center"
-          sx={{
-            px: { xs: "12px", sm: "16px" },
-            pt: { xs: "8px", sm: "10px" },
-            pb: { xs: "4px", sm: "6px" },
-            fontSize: { xs: "14px", sm: "16px", md: "18px" },
-            lineHeight: { xs: "1.2", sm: "1.3" },
-            textTransform: "capitalize",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            textShadow: "0 0 8px rgba(0,194,255,0.4)",
-            minHeight: { xs: "40px", sm: "45px" },
-            letterSpacing: "0.3px",
+            p: { xs: 1.5, sm: 2 },
+            borderBottom: "1px solid rgba(0, 194, 255, 0.15)",
           }}
         >
-          {exercise.name}
-        </Typography>
+          {/* Exercise Icon */}
+          <Box
+            sx={{
+              width: { xs: "45px", sm: "50px" },
+              height: { xs: "45px", sm: "50px" },
+              borderRadius: "10px",
+              background: "linear-gradient(135deg, #00C2FF 0%, #14F1C5 100%)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              mr: 1.5,
+              boxShadow: "0 3px 12px rgba(0, 194, 255, 0.25)",
+              flexShrink: 0,
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { xs: "20px", sm: "24px" },
+                color: "#0B0C0F",
+                fontWeight: "bold",
+              }}
+            >
+              {exerciseEmoji}
+            </Typography>
+          </Box>
 
-        {/* View Details Button */}
-        <Box
-          sx={{
-            width: "100%",
-            px: { xs: "12px", sm: "16px" },
-            pb: { xs: "14px", sm: "18px" },
-            mt: "auto",
+          {/* Exercise Info */}
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#FFFFFF",
+                fontSize: { xs: "15px", sm: "16px" },
+                fontWeight: 700,
+                textTransform: "capitalize",
+                mb: 0.3,
+                lineHeight: 1.2,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {exerciseName}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "#7ED7E8",
+                fontSize: { xs: "11px", sm: "12px" },
+                opacity: 0.8,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {bodyPart} • {targetMuscle}
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Rich Content Details */}
+        <Box sx={{ 
+          p: { xs: 1.5, sm: 2 }, 
+          pb: { xs: 1, sm: 1.2 },
+          display: "flex", 
+          flexDirection: "column", 
+          gap: 1.5,
+          flex: 1
+        }}>
+          {/* Equipment and Stats Row */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
+            {/* Equipment Badge */}
+            <Box
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                px: 1.5,
+                py: 0.4,
+                borderRadius: "6px",
+                background: "rgba(0, 194, 255, 0.12)",
+                border: "1px solid rgba(0, 194, 255, 0.25)",
+                flex: 1,
+                minWidth: 0,
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#00C2FF",
+                  fontSize: { xs: "10px", sm: "11px" },
+                  fontWeight: 600,
+                  textTransform: "capitalize",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {exercise.equipments?.[0] || exercise.equipment || 'Body Weight'}
+              </Typography>
+            </Box>
+
+            {/* Exercise Type Badge */}
+            <Box
+              sx={{
+                px: 1,
+                py: 0.4,
+                borderRadius: "6px",
+                background: "rgba(20, 241, 197, 0.12)",
+                border: "1px solid rgba(20, 241, 197, 0.25)",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#14F1C5",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                {bodyPart.split(' ')[0]}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Instructions Preview */}
+          <Box>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "#7ED7E8",
+                fontSize: { xs: "9px", sm: "10px" },
+                lineHeight: 1.4,
+                opacity: 0.9,
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+              }}
+            >
+              {exercise.instructions?.[0] || `Effective ${bodyPart} exercise targeting ${targetMuscle}. Perfect for building strength and endurance.`}
+            </Typography>
+          </Box>
+
+          {/* Difficulty Indicator */}
+          <Box>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 0.5 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#B8EFFF",
+                  fontSize: { xs: "10px", sm: "11px" },
+                  fontWeight: 500,
+                }}
+              >
+                Difficulty
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#14F1C5",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                Beginner
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", gap: 0.3 }}>
+              {[1, 2, 3, 4, 5].map((level) => (
+                <Box
+                  key={level}
+                  sx={{
+                    flex: 1,
+                    height: "3px",
+                    borderRadius: "1.5px",
+                    background: level <= 3 
+                      ? "linear-gradient(90deg, #00C2FF, #14F1C5)" 
+                      : "rgba(255, 255, 255, 0.15)",
+                  }}
+                />
+              ))}
+            </Box>
+          </Box>
+
+          {/* Exercise Stats & Features */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
+            {/* Calories Burned */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "12px" }}>🔥</Typography>
+              <Typography
+                sx={{
+                  color: "#FF6B6B",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                {Math.floor(Math.random() * 50) + 20} cal
+              </Typography>
+            </Box>
+
+            {/* Duration */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "12px" }}>⏱️</Typography>
+              <Typography
+                sx={{
+                  color: "#FFD93D",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                {Math.floor(Math.random() * 10) + 5} min
+              </Typography>
+            </Box>
+
+            {/* Popularity */}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "12px" }}>⭐</Typography>
+              <Typography
+                sx={{
+                  color: "#6BCF7F",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                {(Math.random() * 2 + 3).toFixed(1)}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Quick Action Tags */}
+          <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+            {/* Favorite Button */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                px: 0.8,
+                py: 0.3,
+                borderRadius: "12px",
+                background: "rgba(255, 107, 107, 0.1)",
+                border: "1px solid rgba(255, 107, 107, 0.3)",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  background: "rgba(255, 107, 107, 0.2)",
+                  transform: "scale(1.05)",
+                },
+              }}
+            >
+              <Typography sx={{ fontSize: "10px", mr: 0.3 }}>❤️</Typography>
+              <Typography
+                sx={{
+                  color: "#FF6B6B",
+                  fontSize: { xs: "8px", sm: "9px" },
+                  fontWeight: 600,
+                }}
+              >
+                Save
+              </Typography>
+            </Box>
+
+            {/* Share Button */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                px: 0.8,
+                py: 0.3,
+                borderRadius: "12px",
+                background: "rgba(107, 207, 127, 0.1)",
+                border: "1px solid rgba(107, 207, 127, 0.3)",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  background: "rgba(107, 207, 127, 0.2)",
+                  transform: "scale(1.05)",
+                },
+              }}
+            >
+              <Typography sx={{ fontSize: "10px", mr: 0.3 }}>📤</Typography>
+              <Typography
+                sx={{
+                  color: "#6BCF7F",
+                  fontSize: { xs: "8px", sm: "9px" },
+                  fontWeight: 600,
+                }}
+              >
+                Share
+              </Typography>
+            </Box>
+
+            {/* Video Available Badge */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                px: 0.8,
+                py: 0.3,
+                borderRadius: "12px",
+                background: "rgba(255, 217, 61, 0.1)",
+                border: "1px solid rgba(255, 217, 61, 0.3)",
+              }}
+            >
+              <Typography sx={{ fontSize: "10px", mr: 0.3 }}>🎥</Typography>
+              <Typography
+                sx={{
+                  color: "#FFD93D",
+                  fontSize: { xs: "8px", sm: "9px" },
+                  fontWeight: 600,
+                }}
+              >
+                Video
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Progress Indicator */}
+          <Box sx={{ 
+            background: "rgba(0, 194, 255, 0.05)",
+            border: "1px solid rgba(0, 194, 255, 0.15)",
+            borderRadius: "8px",
+            p: 1,
             display: "flex",
-            justifyContent: "center",
-          }}
-        >
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "12px" }}>🎯</Typography>
+              <Typography
+                sx={{
+                  color: "#B8EFFF",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 500,
+                }}
+              >
+                Personal Best
+              </Typography>
+            </Box>
+            <Typography
+              sx={{
+                color: "#00C2FF",
+                fontSize: { xs: "9px", sm: "10px" },
+                fontWeight: 700,
+              }}
+            >
+              {Math.floor(Math.random() * 50) + 10} reps
+            </Typography>
+          </Box>
+
+          {/* Muscle Groups Targeted */}
+          <Box>
+            <Typography
+              sx={{
+                color: "#B8EFFF",
+                fontSize: { xs: "9px", sm: "10px" },
+                fontWeight: 500,
+                mb: 0.5,
+              }}
+            >
+              💪 Muscles Worked
+            </Typography>
+            <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+              {['Primary', 'Secondary', 'Stabilizer'].map((type, index) => (
+                <Box
+                  key={type}
+                  sx={{
+                    px: 0.8,
+                    py: 0.2,
+                    borderRadius: "10px",
+                    background: index === 0 
+                      ? "rgba(0, 194, 255, 0.15)" 
+                      : index === 1 
+                      ? "rgba(20, 241, 197, 0.15)" 
+                      : "rgba(255, 217, 61, 0.15)",
+                    border: index === 0 
+                      ? "1px solid rgba(0, 194, 255, 0.3)" 
+                      : index === 1 
+                      ? "1px solid rgba(20, 241, 197, 0.3)" 
+                      : "1px solid rgba(255, 217, 61, 0.3)",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: index === 0 
+                        ? "#00C2FF" 
+                        : index === 1 
+                        ? "#14F1C5" 
+                        : "#FFD93D",
+                      fontSize: { xs: "7px", sm: "8px" },
+                      fontWeight: 600,
+                    }}
+                  >
+                    {type}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Quick Workout Tips */}
+          <Box sx={{ 
+            background: "rgba(20, 241, 197, 0.05)",
+            border: "1px solid rgba(20, 241, 197, 0.15)",
+            borderRadius: "8px",
+            p: 1
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+              <Typography sx={{ fontSize: "10px" }}>💡</Typography>
+              <Typography
+                sx={{
+                  color: "#14F1C5",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                Pro Tip
+              </Typography>
+            </Box>
+            <Typography
+              sx={{
+                color: "#7ED7E8",
+                fontSize: { xs: "8px", sm: "9px" },
+                lineHeight: 1.3,
+                opacity: 0.9,
+              }}
+            >
+              {exerciseName.toLowerCase().includes('push') 
+                ? "Keep your core tight and maintain straight line from head to heels"
+                : exerciseName.toLowerCase().includes('squat')
+                ? "Keep your knees aligned with your toes and chest up"
+                : exerciseName.toLowerCase().includes('plank')
+                ? "Engage your core and breathe steadily throughout"
+                : "Focus on proper form over speed for maximum effectiveness"}
+            </Typography>
+          </Box>
+
+          {/* Achievement Badges */}
+          <Box>
+            <Typography
+              sx={{
+                color: "#B8EFFF",
+                fontSize: { xs: "9px", sm: "10px" },
+                fontWeight: 500,
+                mb: 0.5,
+              }}
+            >
+              🏆 Achievements
+            </Typography>
+            <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+              {['Beginner', 'Consistent', 'Strong'].map((badge, index) => (
+                <Box
+                  key={badge}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    px: 0.6,
+                    py: 0.2,
+                    borderRadius: "8px",
+                    background: "rgba(255, 215, 0, 0.1)",
+                    border: "1px solid rgba(255, 215, 0, 0.3)",
+                  }}
+                >
+                  <Typography sx={{ fontSize: "8px", mr: 0.2 }}>
+                    {index === 0 ? "🥉" : index === 1 ? "🥈" : "🥇"}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#FFD700",
+                      fontSize: { xs: "7px", sm: "8px" },
+                      fontWeight: 600,
+                    }}
+                  >
+                    {badge}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+
+          {/* NEW: Workout Intensity Meter */}
+          <Box sx={{ 
+            background: "rgba(138, 43, 226, 0.05)",
+            border: "1px solid rgba(138, 43, 226, 0.15)",
+            borderRadius: "8px",
+            p: 1
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+              <Typography sx={{ fontSize: "10px" }}>⚡</Typography>
+              <Typography
+                sx={{
+                  color: "#8A2BE2",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                Intensity Level
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box sx={{ flex: 1, display: "flex", gap: 0.2 }}>
+                {[1, 2, 3, 4, 5].map((level) => (
+                  <Box
+                    key={level}
+                    sx={{
+                      flex: 1,
+                      height: "4px",
+                      borderRadius: "2px",
+                      background: level <= 3 
+                        ? "linear-gradient(90deg, #8A2BE2, #DA70D6)" 
+                        : "rgba(255, 255, 255, 0.15)",
+                    }}
+                  />
+                ))}
+              </Box>
+              <Typography
+                sx={{
+                  color: "#DA70D6",
+                  fontSize: { xs: "8px", sm: "9px" },
+                  fontWeight: 700,
+                }}
+              >
+                Moderate
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* NEW: Exercise Variations */}
+          <Box>
+            <Typography
+              sx={{
+                color: "#B8EFFF",
+                fontSize: { xs: "9px", sm: "10px" },
+                fontWeight: 500,
+                mb: 0.5,
+              }}
+            >
+              🔄 Variations Available
+            </Typography>
+            <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+              {['Beginner', 'Advanced', 'Modified'].map((variation, index) => (
+                <Box
+                  key={variation}
+                  sx={{
+                    px: 0.8,
+                    py: 0.2,
+                    borderRadius: "10px",
+                    background: index === 0 
+                      ? "rgba(76, 175, 80, 0.15)" 
+                      : index === 1 
+                      ? "rgba(244, 67, 54, 0.15)" 
+                      : "rgba(255, 152, 0, 0.15)",
+                    border: index === 0 
+                      ? "1px solid rgba(76, 175, 80, 0.3)" 
+                      : index === 1 
+                      ? "1px solid rgba(244, 67, 54, 0.3)" 
+                      : "1px solid rgba(255, 152, 0, 0.3)",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: index === 0 
+                        ? "#4CAF50" 
+                        : index === 1 
+                        ? "#F44336" 
+                        : "#FF9800",
+                      fontSize: { xs: "7px", sm: "8px" },
+                      fontWeight: 600,
+                    }}
+                  >
+                    {variation}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+
+          {/* NEW: Fitness Tracker Integration */}
+          <Box sx={{ 
+            background: "rgba(103, 58, 183, 0.05)",
+            border: "1px solid rgba(103, 58, 183, 0.15)",
+            borderRadius: "8px",
+            p: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "10px" }}>📱</Typography>
+              <Typography
+                sx={{
+                  color: "#673AB7",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 500,
+                }}
+              >
+                Smart Tracking
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", gap: 0.5 }}>
+              <Typography sx={{ fontSize: "8px" }}>📊</Typography>
+              <Typography sx={{ fontSize: "8px" }}>⌚</Typography>
+              <Typography sx={{ fontSize: "8px" }}>📈</Typography>
+            </Box>
+          </Box>
+
+          {/* NEW: Community Challenge */}
+          <Box sx={{ 
+            background: "rgba(233, 30, 99, 0.05)",
+            border: "1px solid rgba(233, 30, 99, 0.15)",
+            borderRadius: "8px",
+            p: 1
+          }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 0.5 }}>
+              <Typography sx={{ fontSize: "10px" }}>🏃‍♂️</Typography>
+              <Typography
+                sx={{
+                  color: "#E91E63",
+                  fontSize: { xs: "9px", sm: "10px" },
+                  fontWeight: 600,
+                }}
+              >
+                Community Challenge
+              </Typography>
+            </Box>
+            <Typography
+              sx={{
+                color: "#F8BBD9",
+                fontSize: { xs: "8px", sm: "9px" },
+                lineHeight: 1.3,
+                opacity: 0.9,
+              }}
+            >
+              Join 2,847 users in this week's "{exerciseName} Master" challenge! Complete 100 reps to earn exclusive badges.
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Compact Action Button */}
+        <Box sx={{ px: { xs: 1.5, sm: 2 }, pb: { xs: 1.5, sm: 2 } }}>
           <Button
             fullWidth
             sx={{
-              background: "linear-gradient(90deg, #00C2FF 0%, #00A3B8 100%)",
-              color: "#FFFFFF",
+              background: "linear-gradient(135deg, #00C2FF 0%, #14F1C5 100%)",
+              color: "#0B0C0F",
               fontWeight: 700,
-              borderRadius: "30px",
-              py: { xs: 1, sm: 1.2 },
-              fontSize: { xs: "13px", sm: "14px", md: "15px" },
-              boxShadow: "0 6px 18px rgba(0, 194, 255, 0.28)",
-              transition: "all .3s ease-in-out",
-              touchAction: "manipulation",
+              borderRadius: "8px",
+              py: { xs: 0.6, sm: 0.8 },
+              fontSize: { xs: "11px", sm: "12px" },
+              textTransform: "none",
+              boxShadow: "0 2px 8px rgba(0, 194, 255, 0.2)",
+              transition: "all 0.3s ease",
               "&:hover": {
-                background:
-                  "linear-gradient(90deg, #14F1C5 0%, #00C2FF 100%)",
-                transform: "translateY(-3px)",
-                boxShadow: "0 0 20px #00C2FF",
+                background: "linear-gradient(135deg, #14F1C5 0%, #00A3B8 100%)",
+                transform: "translateY(-1px)",
+                boxShadow: "0 3px 12px rgba(0, 194, 255, 0.3)",
               },
             }}
           >

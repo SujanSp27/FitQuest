@@ -5,29 +5,62 @@ import { Box, Stack, Typography, Grid } from '@mui/material';
 import { fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
 import Loader from './Loader';
+import NoResults from './NoResults';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(9);
   const [pendingScrollId, setPendingScrollId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchExercisesData = async () => {
       try {
-        const allExercises = await fetchData(
-          'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json'
-        );
+        setLoading(true);
+        
+        // Try multiple API endpoints for exercises
+        const endpoints = [
+          'https://raw.githubusercontent.com/ExerciseDB/exercisedb-api/main/src/data/exercises.json',
+          'https://exercisedb.p.rapidapi.com/exercises',
+          // Fallback will be handled by fetchData function
+        ];
+        
+        let allExercises = [];
+        for (const endpoint of endpoints) {
+          try {
+            const options = endpoint.includes('rapidapi.com') ? {
+              headers: {
+                'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY || '',
+                'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+              }
+            } : {};
+            
+            allExercises = await fetchData(endpoint, options);
+            if (allExercises && allExercises.length > 0) {
+              break;
+            }
+          } catch (error) {
+            console.warn(`Failed to fetch exercises from ${endpoint}:`, error);
+            continue;
+          }
+        }
 
         if (bodyPart === 'all') {
           setExercises(allExercises);
         } else {
           const filtered = allExercises.filter((exercise) =>
-            exercise.bodyParts?.includes(bodyPart)
+            exercise.bodyParts?.includes(bodyPart) || exercise.bodyPart === bodyPart
           );
           setExercises(filtered);
         }
+        
+        console.log(`✅ Loaded ${allExercises.length} exercises for body part: ${bodyPart}`);
       } catch (error) {
         console.error('❌ Error fetching exercise data:', error);
+        // Set empty array to show "no exercises" state
+        setExercises([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -87,7 +120,23 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     return () => clearTimeout(retryTimer);
   }, [pendingScrollId, exercises]);
 
-  if (!currentExercises.length) return <Loader />;
+  if (loading) return <Loader message="Loading exercises..." />;
+  
+  if (!currentExercises.length) {
+    return (
+      <NoResults 
+        title="No exercises found"
+        message={bodyPart === 'all' 
+          ? "We're having trouble loading exercises. Please try again later." 
+          : `No exercises found for ${bodyPart}. Try selecting a different body part.`
+        }
+        onReset={() => {
+          setExercises([]);
+          window.location.reload();
+        }}
+      />
+    );
+  }
 
   return (
     <Box
