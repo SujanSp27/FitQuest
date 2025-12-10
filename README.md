@@ -40,7 +40,7 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 
 ### **Prerequisites**
 - Node.js (version 14 or higher)
-- npm or yarn
+- npm 
 
 ### **1️⃣ Clone & Install**
 ```bash
