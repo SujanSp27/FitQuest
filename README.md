@@ -4,10 +4,10 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 
 ---
 
-## 🌟 Key Highlights
+## 🌟 Key Highlights ##
 
 ✔ Search any exercise by name, muscle group, or equipment  
-✔ View exercise details with images & instructions  
+✔ View exercise details with images & instruction
 ✔ Embedded **YouTube video tutorials**  
 ✔ Get **similar exercises** based on target muscle  
 ✔ Get **equipment-based exercise recommendations**  
@@ -15,7 +15,7 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 ✔ Built using modern React components  
 
 ---
-
+---
 ## 🎨 Screens / Pages Included
 
 - **Home / Search Page**
@@ -38,7 +38,8 @@ npm install
 ```bash
 npm start
 ```
-
+## run
+npm run dev 
 App runs at:  
 http://localhost:3000
 
@@ -107,6 +108,8 @@ Pull requests are welcome!
 Feel free to open issues or suggest improvements.
 
 ---
+### Update
+- Minor documentation changes.
 
 
 ⭐ *If you like this project, consider giving the repository a star!*
