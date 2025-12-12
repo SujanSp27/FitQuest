@@ -42,20 +42,14 @@ FitQuest is a fitness-focused **React application** that lets users search for e
 - Node.js (version 14 or higher)
 - npm 
 
-### **1️⃣ Clone & Install**
+### **1️ Clone & Install**
 ```bash
 git clone <repository-url>
 cd fitquest
 npm install
 ```
 
-### **2️⃣ Environment Setup (Optional)**
-```bash
-cp .env.example .env
-# Edit .env and add your RapidAPI key (optional - app works without it)
-```
-
-### **3️⃣ Start Development Server**
+### **2 Start Development Server**
 ```bash
 npm start
 ```
