@@ -227,12 +227,6 @@ For issues or questions:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
 ⭐ **If you find this project helpful, please consider giving it a star!**
 
 *Built with ❤️ for the fitness community*
